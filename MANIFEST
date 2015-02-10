@@ -1,0 +1,20 @@
+.travis.yml
+Build.PL
+Changes
+CONTRIBUTING
+inc/My/ModuleBuild.pm
+inc/run/readme.pl
+INSTALL
+lib/FFI/Platypus/Lang/Fortran.pm
+lib/Module/Build/FFI/Fortran.pm
+MANIFEST			This list of files
+META.json
+META.yml
+README
+SUPPORT
+t/00_diag.t
+t/00_diag.txt
+t/01_use.t
+t/02_types.t
+t/ffi_platypus_attach.t
+t/lang.t

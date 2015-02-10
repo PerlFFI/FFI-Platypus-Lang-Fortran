@@ -1,2 +1,13 @@
+/Build
+/*.bak
+/*.tmp
+/MYMETA.json
+/MYMETA.yml
+/_build
+/blib
 /FFI-Platypus-Lang-Fortran-*
-/.build
+*.o
+*.dll
+*.so
+*.bundle
+*.dylib
