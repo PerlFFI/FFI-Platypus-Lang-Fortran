@@ -3,6 +3,9 @@ package ExtUtils::F77;
 # Copyright (c) 2001 by Karl Glazebrook.
 # see licensing details below
 
+use strict;
+use warnings;
+use 5.008001;
 use Config;
 use File::Spec;
 
@@ -40,7 +43,7 @@ variable F77LIBS, e.g.
 
 =cut
 
-$VERSION = "1.17_01"; 
+our $VERSION = "1.17_01";
 
 warn "\nExtUtils::F77: Version $VERSION\n";
 
@@ -55,7 +58,25 @@ warn "\nExtUtils::F77: Version $VERSION\n";
 
 print "Loaded ExtUtils::F77 version $VERSION\n";
 
-%F77config=();
+# formally implicit globals
+
+our %F77config=();
+our $gcc;
+our $gfortran;
+our $fallback_compiler;
+our $dir;
+our $ok;
+our %CACHE;
+
+# Package variables
+
+our $Runtime = "-LSNAFU -lwontwork";
+our $RuntimeOK = 0;
+our $Trail_  = 1;
+our $Pkg   = "";
+our $Compiler = "";
+our $Cflags = "";
+
 
 ########## Win32 Specific ##############
 if($^O =~ /MSWin/i) {
@@ -374,15 +395,6 @@ $F77config{Darwin}{DEFAULT}     = 'GNU';
 
 =cut
 
-# Package variables
-
-$Runtime = "-LSNAFU -lwontwork";
-$RuntimeOK = 0;
-$Trail_  = 1;
-$Pkg   = "";
-$Compiler = "";
-$Cflags = "";
-
 sub get; # See below
 
 # All the figuring out occurs during import - this is because
@@ -655,7 +667,7 @@ sub gcclibs {
    if ($isgcc or ($flibs =~ /-lg2c/) or ($flibs =~ /-lf2c/) ) {
        # Don't link to libgcc on MS Windows iff we're using gfortran.
        unless($fallback_compiler eq 'GFortran' && $^O =~ /MSWin/i) {
-         $gccdir = `$gcc -m32 -print-libgcc-file-name`; chomp $gccdir;
+         my $gccdir = `$gcc -m32 -print-libgcc-file-name`; chomp $gccdir;
          $gccdir =~ s/\/libgcc.a//;
          return " -L$gccdir -lgcc";
        }else{
