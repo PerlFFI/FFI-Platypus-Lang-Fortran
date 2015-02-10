@@ -125,7 +125,31 @@ sub mangler
 
 =head1 EXAMPLES
 
-TODO
+=head2 Call a subroutine
+
+Fortran:
+
+ C Compile with gfortran -shared -o libsub.so sub.f
+       SUBROUTINE ADD(IRESULT, IA, IB)
+           IRESULT = IA + IB
+       END
+
+Perl:
+
+ use FFI::Platypus;
+ 
+ my $ffi = FFI::Platypus->new;
+ $ffi->lang('Fortran');
+ $ffi->lib('./libsub.so');
+ 
+ $ffi->attach( add => ['integer*','integer*','integer*'] => 'void');
+ 
+ my $value = 0;
+ add(\$value, \1, \2);
+ 
+ print "$value\n";
+
+A Fortran "subroutine" is just a function that doesn't return a value.
 
 =head1 SUPPORT
 

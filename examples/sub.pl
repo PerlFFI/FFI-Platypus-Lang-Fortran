@@ -12,3 +12,4 @@ my $value = 0;
 add(\$value, \1, \2);
 
 print "$value\n";
+
