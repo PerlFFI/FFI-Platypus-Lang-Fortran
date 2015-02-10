@@ -16,6 +16,7 @@ Fortran
 Fortran:
 
  C Fortran function that adds two number together
+ C On Linux create a .so with: gfortran -shared -o libadd.so add.f
        FUNCTION ADD(IA, IB)
            ADD1 = IA + IB
        END
