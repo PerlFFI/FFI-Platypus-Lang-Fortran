@@ -2,6 +2,7 @@ package FFI::Platypus::Lang::Fortran;
 
 use strict;
 use warnings;
+use FFI::Platypus::Lang::Fortran::ConfigData;
 
 our $VERSION = '0.01';
 
@@ -12,7 +13,23 @@ Fortran
 
 =head1 SYNOPSIS
 
-TODO
+ C FORTRAN 77
+       FUNCTION ADD(IA, IB)
+           ADD1 = IA + IB
+       END
+
+Perl:
+
+ use FFI::Platypus;
+ $ffi->lang('Fortran');
+ $ffi->lib('./libadd.so'); # or add.dll on Windows
+ 
+ # Fortran is pass by reference, so use pointers
+ $ffi->attach( add => [ 'integer*', 'integer*' ] => 'integer' );
+ 
+ # Use a reference to an integer to pass
+ # a pointer to an integer
+ print add(\1,\2), "\n";  # prints 3
 
 =head1 DESCRIPTION
 
@@ -24,9 +41,34 @@ for anyone either sufficiently knowledgable about Fortran or eager enough to
 learn enough about Fortran.  If you are interested, please send me a pull
 request or two on the project's GitHub.
 
+For types, C<_> is used instead of C<*>, so use C<integer_4> instead of
+C<integer*4>.
+
+=over 4
+
+=item byte, character
+
+=item integer, integer_1, integer_2, integer_4, integer_8
+
+=item unsigned, unsigned_1, unsigned_2, unsigned_4, unsigned_8
+
+=item logical, logical_1, logical_2, logical_4, logical_8
+
+=item real, real_4, real_8, double precision
+
+=back
+
 =head1 CAVEATS
 
-TODO
+Fortran is pass by reference, which means that you need to pass pointers.
+Confusingly Platypus uses a star (C<*>) suffix to indicate a pointer, and
+Fortran uses a star to indicate the size of types.
+
+Right now this module depends on L<ExtUtils::F77>, which has a less than
+stellar record on cpantesters, and is Fortran 77 centric, although it
+should work with Fortran 90+ on platforms where both Fortran 77 and
+newer Fortrans are invoked with the same command, such as those that use
+Gnu Fortran.
 
 =head1 METHODS
 
@@ -46,8 +88,7 @@ are libffi native types.
 
 sub native_type_map
 {
-  {
-  }
+  FFI::Platypus::Lang::Fortran::ConfigData->config('type');
 }
 
 =head2 mangler
@@ -63,10 +104,9 @@ sub mangler
 {
   my($class, @libs) = @_;
   
-  sub {
-    my($symbol) = @_;
-    $symbol;
-  };
+  FFI::Platypus::Lang::Fortran::ConfigData->config('f77')->{'trailing_underscore'}
+  ? sub { return "$_[0]_" }
+  : sub { $_[0] };
 }
 
 =head1 EXAMPLES

@@ -18,16 +18,20 @@ my $builder = My::ModuleBuild->new(
   configure_requires => {
     'Module::Build' => 0.38,
     'ExtUtils::F77' => 0,
+    'File::Which'   => 0,
   },
   build_requires => {
     'Module::Build' => 0.38,
+    'File::Which'   => 0,
   },
   test_requires => {
     'FFI::CheckLib' => 0,
+    'File::Which'   => 0,
   },
   requires => {
-    'perl' => '5.008001',
+    'perl'          => '5.008001',
     'FFI::Platypus' => '0.21',
+    'File::Which'   => 0,
   },
 );
 

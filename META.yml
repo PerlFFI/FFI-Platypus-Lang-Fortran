@@ -4,9 +4,11 @@ author:
   - 'Graham Ollis <plicease@cpan.org>'
 build_requires:
   FFI::CheckLib: '0'
+  File::Which: '0'
   Module::Build: '0.38'
 configure_requires:
   ExtUtils::F77: '0'
+  File::Which: '0'
   Module::Build: '0.38'
 dynamic_config: 1
 generated_by: 'Module::Build version 0.421, CPAN::Meta::Converter version 2.143240'
@@ -24,6 +26,7 @@ provides:
     version: '0.01'
 requires:
   FFI::Platypus: '0.21'
+  File::Which: '0'
   perl: '5.008001'
 resources:
   license: http://dev.perl.org/licenses/

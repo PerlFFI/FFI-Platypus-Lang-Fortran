@@ -16,24 +16,28 @@
    "prereqs" : {
       "build" : {
          "requires" : {
+            "File::Which" : "0",
             "Module::Build" : "0.38"
          }
       },
       "configure" : {
          "requires" : {
             "ExtUtils::F77" : "0",
+            "File::Which" : "0",
             "Module::Build" : "0.38"
          }
       },
       "runtime" : {
          "requires" : {
             "FFI::Platypus" : "0.21",
+            "File::Which" : "0",
             "perl" : "5.008001"
          }
       },
       "test" : {
          "requires" : {
-            "FFI::CheckLib" : "0"
+            "FFI::CheckLib" : "0",
+            "File::Which" : "0"
          }
       }
    },

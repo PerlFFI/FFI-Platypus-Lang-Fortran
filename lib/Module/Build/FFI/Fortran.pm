@@ -51,6 +51,16 @@ sub ffi_build_dynamic_lib
   my($self, $src_dir, $name, $target_dir) = @_;
 }
 
+sub _f77_config
+{
+  require FFI::Platypus::Lang::Fortran::ConfigData;
+  FFI::Platypus::Lang::Fortran::ConfigData->config('f77');
+}
+
+1;
+
+__END__
+
 =head1 EXAMPLES
 
 TODO
