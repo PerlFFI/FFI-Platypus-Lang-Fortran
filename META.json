@@ -48,6 +48,10 @@
       "Module::Build::FFI::Fortran" : {
          "file" : "lib/Module/Build/FFI/Fortran.pm",
          "version" : "0.01"
+      },
+      "Module::Build::FFI::Fortran::ExtUtilsF77" : {
+         "file" : "lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm",
+         "version" : "0.01"
       }
    },
    "release_status" : "stable",

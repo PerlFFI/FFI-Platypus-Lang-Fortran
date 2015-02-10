@@ -51,10 +51,27 @@ sub ffi_build_dynamic_lib
   my($self, $src_dir, $name, $target_dir) = @_;
 }
 
+sub _f77
+{
+  eval qq{ use Module::Build::FFI::Fortran::ExtUtilsF77; };
+  die $@ if $@;
+}
+
 sub _f77_config
 {
-  require FFI::Platypus::Lang::Fortran::ConfigData;
-  FFI::Platypus::Lang::Fortran::ConfigData->config('f77');
+  _f77();
+  {
+    runtime             => Module::Build::FFI::Fortran::ExtUtilsF77::runtime(),
+    trailing_underscore => Module::Build::FFI::Fortran::ExtUtilsF77::trail_(),
+    compiler            => Module::Build::FFI::Fortran::ExtUtilsF77::compiler(),
+    cflags              => Module::Build::FFI::Fortran::ExtUtilsF77::cflags(),
+  }
+}
+
+sub _f77_testcompiler
+{
+  _f77();
+  Module::Build::FFI::Fortran::ExtUtilsF77::testcompiler();
 }
 
 1;

@@ -10,19 +10,7 @@ sub new
   my($class, %args) = @_;
   my $self = $class->SUPER::new(%args);
   
-  print "probing for Fortran... (it is kinda noisy)\n";
-  require ExtUtils::F77;
-  ExtUtils::F77->import();
-  
-  $self->config_data(
-    f77 => {
-      runtime             => ExtUtils::F77::runtime(),
-      trailing_underscore => ExtUtils::F77::trail_(),
-      compiler            => ExtUtils::F77::compiler(),
-      cflags              => ExtUtils::F77::cflags(),
-      testcompiler        => ExtUtils::F77::testcompiler(),
-    },
-  );
+  $self->config_data(f77 => $self->_f77_config);
   
   my %type;
   my $ffi = FFI::Platypus->new;

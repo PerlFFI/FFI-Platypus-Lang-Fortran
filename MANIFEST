@@ -4,12 +4,12 @@ Changes
 CONTRIBUTING
 examples/add1.f
 examples/add1.pl
-inc/ExtUtils/F77.pm
 inc/My/ModuleBuild.pm
 inc/run/readme.pl
 INSTALL
 lib/FFI/Platypus/Lang/Fortran.pm
 lib/Module/Build/FFI/Fortran.pm
+lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm
 LICENSE
 MANIFEST			This list of files
 META.json

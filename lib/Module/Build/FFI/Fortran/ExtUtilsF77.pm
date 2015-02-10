@@ -1,4 +1,4 @@
-package ExtUtils::F77;
+package Module::Build::FFI::Fortran::ExtUtilsF77;
 
 # Copyright (c) 2001 by Karl Glazebrook.
 # see licensing details below
@@ -11,9 +11,12 @@ use File::Spec;
 
 =head1 NAME
 
-ExtUtils::F77 - Simple interface to F77 libs
+Module::Build::FFI::Fortran::ExtUtilsF77 - Simple interface to F77 libs
 
 =head1 DESCRIPTION
+
+This is a fork of L<ExtUtils::F77> with necessary changes needed
+for L<FFI::Platypus> and L<FFI::Platypus::Lang::Fortran>.
 
 This module tries to figure out how to link C programs with
 Fortran subroutines on your system. Basically one must add a list
@@ -43,9 +46,9 @@ variable F77LIBS, e.g.
 
 =cut
 
-our $VERSION = "1.17_01";
+our $VERSION = "0.01";
 
-warn "\nExtUtils::F77: Version $VERSION\n";
+warn "\nModule::Build::FFI::Fortran::ExtUtilsF77: Version $VERSION\n";
 
 # Database starts here. Basically we have a large hash specifying
 # entries for each os/compiler combination. Entries can be code refs
@@ -56,7 +59,7 @@ warn "\nExtUtils::F77: Version $VERSION\n";
 # hash keys. First key is usually the name of the architecture as
 # returned by Config (modulo ucfirst()).
 
-print "Loaded ExtUtils::F77 version $VERSION\n";
+print "Loaded Module::Build::FFI::Fortran::ExtUtilsF77 version $VERSION\n";
 
 # formally implicit globals
 
@@ -319,7 +322,7 @@ $F77config{Hpux}{DEFAULT}     = 'F77';
 # there is a new abi, -64, which produces 64 bit executables. This is no
 # longer an experimental feature and I am using it exclusively without any
 # problem. The code below is what I use instead of original IRIX section
-# in the ExtUtils::F77 package. It adds the -64 flag and it is supposed to
+# in the Module::Build::FFI::Fortran::ExtUtilsF77 package. It adds the -64 flag and it is supposed to
 # provide the same functionality as the old code for a non -64 abi. 
 
 if (ucfirst($Config{'osname'}) eq "Irix")
@@ -387,10 +390,10 @@ $F77config{Darwin}{DEFAULT}     = 'GNU';
 
 =head1 SYNOPSIS
 
-  use ExtUtils::F77;               # Automatic guess 
-  use ExtUtils::F77 qw(sunos);     # Specify system
-  use ExtUtils::F77 qw(linux g77); # Specify system and compiler
-  $fortranlibs = ExtUtils::F77->runtime;
+  use Module::Build::FFI::Fortran::ExtUtilsF77;               # Automatic guess 
+  use Module::Build::FFI::Fortran::ExtUtilsF77 qw(sunos);     # Specify system
+  use Module::Build::FFI::Fortran::ExtUtilsF77 qw(linux g77); # Specify system and compiler
+  $fortranlibs = Module::Build::FFI::Fortran::ExtUtilsF77->runtime;
 
 
 =cut
@@ -515,7 +518,7 @@ The following methods are provided:
 
 Returns a list of F77 runtime libraries.
 
-  $fortranlibs = ExtUtils::F77->runtime;
+  $fortranlibs = Module::Build::FFI::Fortran::ExtUtilsF77->runtime;
 
 =item * B<runtimeok>
 

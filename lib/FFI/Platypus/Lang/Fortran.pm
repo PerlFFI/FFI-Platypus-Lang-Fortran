@@ -67,11 +67,10 @@ Fortran is pass by reference, which means that you need to pass pointers.
 Confusingly Platypus uses a star (C<*>) suffix to indicate a pointer, and
 Fortran uses a star to indicate the size of types.
 
-Right now this module depends on L<ExtUtils::F77>, which has a less than
-stellar record on cpantesters, and is Fortran 77 centric, although it
-should work with Fortran 90+ on platforms where both Fortran 77 and
-newer Fortrans are invoked with the same command, such as those that use
-Gnu Fortran.
+This module currently uses and is bundled with a fork of L<ExtUtils::F77>
+called L<Module::Build::FFI::Fortran::ExtUtilsF77>.  It is used to probe
+for a Fortran compiler, which can be problematic if you want to bundle
+Fortran 90 or Fortran 95 code.  We attempt to work around these limitations.
 
 =head1 METHODS
 
@@ -178,10 +177,9 @@ This software is copyright (c) 2015 by Graham Ollis
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-This software comes bundled with a forked version of L<ExtUtils::F77>.
-It is only used during the configure stage of the install, and is
-NOT used during build, test or runtime.  L<ExtUtils::F77> comes with
-this statement regarding its license:
+This software comes bundled with a forked version of L<ExtUtils::F77>
+called L<Module::Build::FFI::Fortran::ExtUtilsF77>.
+L<ExtUtils::F77> comes with this statement regarding its license:
 
   Copyright (c) 2001 by Karl Glazebrook. All rights reserved.  This distribution 
   is free software; you can redistribute it and/or modify it under the same 

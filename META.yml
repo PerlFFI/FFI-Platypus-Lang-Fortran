@@ -23,6 +23,9 @@ provides:
   Module::Build::FFI::Fortran:
     file: lib/Module/Build/FFI/Fortran.pm
     version: '0.01'
+  Module::Build::FFI::Fortran::ExtUtilsF77:
+    file: lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm
+    version: '0.01'
 requires:
   FFI::Platypus: '0.21'
   File::Which: '0'
