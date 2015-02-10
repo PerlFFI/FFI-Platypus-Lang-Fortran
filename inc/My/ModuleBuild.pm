@@ -10,6 +10,7 @@ sub new
   my($class, %args) = @_;
   my $self = $class->SUPER::new(%args);
   
+  unlink 'config.log' if -e 'config.log';  
   $self->config_data(f77 => $self->_f77_config);
   
   my %type;
@@ -43,12 +44,12 @@ sub new
   #  DOUBLE COMPLEX  = { double, double }
   #  COMPLEX*16      = { double, double }
   #  COMPLEX*32      = { long double, long double }
-  #  REAL*16
+  #  REAL*16         = long double
   
   $self->config_data(
     type => \%type,
   );
-  
+
   $self;
 }
 

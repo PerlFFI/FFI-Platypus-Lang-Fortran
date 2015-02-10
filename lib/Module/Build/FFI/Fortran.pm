@@ -2,6 +2,11 @@ package Module::Build::FFI::Fortran;
 
 use strict;
 use warnings;
+use Config;
+use File::Glob qw( bsd_glob );
+use File::Which qw( which );
+use Text::ParseWords qw( shellwords );
+use File::Spec;
 use base qw( Module::Build::FFI );
 
 our $VERSION = '0.01';
@@ -34,6 +39,40 @@ Returns true if Fortran is available.
 sub ffi_have_compiler
 {
   my($self) = @_;
+  
+  my %ext;
+  
+  foreach my $dir (@{ $self->ffi_source_dir }, @{ $self->ffi_libtest_dir })
+  {
+    next unless -d $dir;
+    $ext{$_} = 1 for map { s/^.*\.//; $_ } bsd_glob("$dir/*.{f,for,f90,f95}");
+  }
+
+  return unless %ext;
+
+  if($ext{f} || $ext{for})
+  {
+    #warn "testing Fortran 77";
+    return unless $self->_f77_testcompiler;
+  }
+  
+  if($ext{f90})
+  {
+    #warn "testing Fortran 90";
+    # TODO: do an actual test on the compiler, not just
+    # check for it in the PATH
+    return unless which($self->_f77_config->{f90});
+  }
+
+  if($ext{f95})
+  {
+    #warn "testing Fortran 95";
+    # TODO: do an actual test on the compiler, not just
+    # check for it in the PATH
+    return unless which($self->_f77_config->{f95});
+  }
+  
+  1;
 }
 
 =head2 ffi_build_dynamic_lib
@@ -48,11 +87,83 @@ sources.
 
 sub ffi_build_dynamic_lib
 {
-  my($self, $src_dir, $name, $target_dir) = @_;
+  my($self, $dirs, $name, $dest_dir) = @_;
+  
+  $dest_dir ||= $dirs->[0];
+  
+  my $f77_config = $self->_f77_config;
+  my @cflags = (
+    shellwords($f77_config->{cflags}),
+    # hopefully the Fortran compiler understands the same flags as the C compiler
+    shellwords($Config{cccdlflags}),
+    shellwords($Config{optimize})
+  );
+  
+  if($self->extra_linker_flags)
+  {
+    if(ref($self->extra_linker_flags))
+    {
+      push @cflags, @{ $self->extra_linker_flags };
+    }
+    else
+    {
+      push @cflags, shellwords($self->extra_linker_flags);
+    }
+  }
+  
+  my @obj;
+  
+  foreach my $dir (@$dirs)
+  {
+    push @obj, map {
+    
+      my $filename = $_;
+      my $obj_name = $filename;
+      $obj_name =~ s{\.(f|for|f90|f95)$}{$Config{obj_ext}};
+      my $ext = $1;
+      
+      $self->add_to_cleanup($obj_name);
+      
+      my $compiler = $f77_config->{f77};
+      $compiler = $f77_config->{f90} if $ext eq 'f90';
+      $compiler = $f77_config->{f95} if $ext eq 'f95';
+      
+      my @cmd = (
+        $compiler,
+        '-c',
+        '-o' => $obj_name,
+        @cflags,
+        $filename,
+      );
+      
+      print "@cmd\n";
+      system @cmd;
+      exit 2 if $?;
+      
+      $obj_name;
+    
+    } bsd_glob("$dir/*.{f,for,f90,f95}");
+  }
+  
+  my $b = $self->cbuilder;
+  
+  if($^O ne 'MSWin32')
+  {
+    return $b->link(
+      lib_file           => $b->lib_file(File::Spec->catfile($dest_dir, $b->object_file("$name.c"))),
+      objects            => \@obj,
+      extra_linker_flags => $self->extra_linker_flags,
+    );
+  }
+  else
+  {
+    die "TODO";  # See Module::Build::FFI
+  }
 }
 
 sub _f77
 {
+  return if $INC{'Module/Build/FFI/Fortran/ExtUtilsF77.pm'};
   eval qq{ use Module::Build::FFI::Fortran::ExtUtilsF77; };
   die $@ if $@;
 }
@@ -60,12 +171,21 @@ sub _f77
 sub _f77_config
 {
   _f77();
-  {
+  my $config = {
     runtime             => Module::Build::FFI::Fortran::ExtUtilsF77::runtime(),
     trailing_underscore => Module::Build::FFI::Fortran::ExtUtilsF77::trail_(),
-    compiler            => Module::Build::FFI::Fortran::ExtUtilsF77::compiler(),
     cflags              => Module::Build::FFI::Fortran::ExtUtilsF77::cflags(),
+    f77                 => Module::Build::FFI::Fortran::ExtUtilsF77::compiler(),
+  };
+
+  # Just guessing...
+  foreach my $compiler (qw( 90 95 ))
+  {
+    $config->{"f$compiler"} = $config->{f77};
+    $config->{"f$compiler"} =~ s/77/$compiler/;
   }
+    
+  $config;
 }
 
 sub _f77_testcompiler
