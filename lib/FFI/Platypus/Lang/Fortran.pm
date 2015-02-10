@@ -13,7 +13,9 @@ Fortran
 
 =head1 SYNOPSIS
 
- C FORTRAN 77
+Fortran:
+
+ C Fortran function that adds two number together
        FUNCTION ADD(IA, IB)
            ADD1 = IA + IB
        END
