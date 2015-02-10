@@ -10,6 +10,7 @@ INSTALL
 lib/FFI/Platypus/Lang/Fortran.pm
 lib/Module/Build/FFI/Fortran.pm
 lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm
+libtest/add.f
 LICENSE
 MANIFEST			This list of files
 META.json
