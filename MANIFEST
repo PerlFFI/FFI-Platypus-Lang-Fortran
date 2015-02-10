@@ -2,8 +2,8 @@
 Build.PL
 Changes
 CONTRIBUTING
-examples/add1.f
-examples/add1.pl
+examples/f77add.f
+examples/f77add.pl
 inc/My/ModuleBuild.pm
 inc/run/readme.pl
 INSTALL
