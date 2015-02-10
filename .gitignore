@@ -11,3 +11,4 @@
 *.so
 *.bundle
 *.dylib
+/config.log

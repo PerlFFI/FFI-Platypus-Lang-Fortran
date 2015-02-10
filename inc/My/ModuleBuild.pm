@@ -66,10 +66,12 @@ sub ACTION_readme
   system $^X, 'inc/run/readme.pl';
 }
 
-sub _f77_config
+sub Module::Build::FFI::Fortran::ExtUtilsF77::config_log
 {
-  my($self) = @_;
-  $self->config_data('f77');
+  my $config_log;
+  open $config_log, '>>', 'config.log';
+  print $config_log @_;
+  close $config_log;
 }
 
 1;

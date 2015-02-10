@@ -85,3 +85,5 @@
 \.dll$
 \.bundle$
 \.dylib$
+
+\bconfig\.log$

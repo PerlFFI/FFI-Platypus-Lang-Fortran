@@ -45,6 +45,7 @@ $builder->add_to_cleanup(qw(
   libtest/*.dylib
   libtest/*.bundle
   FFI-Platypus-Lang-Fortran-*
+  config.log
 ));
 
 $builder->create_build_script;

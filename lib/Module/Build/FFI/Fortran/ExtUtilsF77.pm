@@ -16,7 +16,9 @@ Module::Build::FFI::Fortran::ExtUtilsF77 - Simple interface to F77 libs
 =head1 DESCRIPTION
 
 This is a fork of L<ExtUtils::F77> with necessary changes needed
-for L<FFI::Platypus> and L<FFI::Platypus::Lang::Fortran>.
+for L<FFI::Platypus> and L<FFI::Platypus::Lang::Fortran>.  The
+rest of this documentation is from the original, with the class
+names updated to reflect the fork.
 
 This module tries to figure out how to link C programs with
 Fortran subroutines on your system. Basically one must add a list
@@ -48,7 +50,9 @@ variable F77LIBS, e.g.
 
 our $VERSION = "0.01";
 
-warn "\nModule::Build::FFI::Fortran::ExtUtilsF77: Version $VERSION\n";
+BEGIN { eval q{ sub config_log {} } unless __PACKAGE__->can('config_log') }
+
+config_log "\nModule::Build::FFI::Fortran::ExtUtilsF77: Version $VERSION";
 
 # Database starts here. Basically we have a large hash specifying
 # entries for each os/compiler combination. Entries can be code refs
@@ -59,7 +63,7 @@ warn "\nModule::Build::FFI::Fortran::ExtUtilsF77: Version $VERSION\n";
 # hash keys. First key is usually the name of the architecture as
 # returned by Config (modulo ucfirst()).
 
-print "Loaded Module::Build::FFI::Fortran::ExtUtilsF77 version $VERSION\n";
+config_log "\nLoaded Module::Build::FFI::Fortran::ExtUtilsF77 version $VERSION\n";
 
 # formally implicit globals
 
@@ -166,7 +170,7 @@ $F77config{MinGW}{GFortran}{Cflags}   = '-O';
 $F77config{Sunos}{F77}{Link} = sub {  
        $dir = find_highest_SC("/usr/lang/SC*");
        return "" unless $dir; # Failure
-       print "$Pkg: Found Fortran latest version lib dir $dir\n";
+       config_log "$Pkg: Found Fortran latest version lib dir $dir\n";
        return "-L$dir -lF77 -lm";
 };
 
@@ -215,7 +219,7 @@ $F77config{Solaris}{F77}{Link} = sub {
 
      if (defined $NSPATH) {
 
-       print "$Pkg: Found F77 path:--->$NSPATH\n";
+       config_log "$Pkg: Found F77 path:--->$NSPATH\n";
 
        $dir = find_highest_SC("$NSPATH/WS*/lib") ||
               find_highest_SC("$NSPATH/SC*/lib") ||
@@ -225,14 +229,14 @@ $F77config{Solaris}{F77}{Link} = sub {
        # match for libF77.*, as libF77.a isn't there anymore?
        unless ( $dir )
        {
-	 print "$Pkg: Trying $NSPATH/lib\n";
+	 config_log "$Pkg: Trying $NSPATH/lib\n";
 	 $dir = "$NSPATH/lib" if glob("$NSPATH/lib/libF77*");
        }
 	      
      } else {
      }
      return "" unless $dir; # Failure
-     print "$Pkg: Found Fortran latest version lib dir $dir\n";
+     config_log "$Pkg: Found Fortran latest version lib dir $dir\n";
 
      my @libs;
 
@@ -416,11 +420,11 @@ sub import {
    $system = 'Cygwin' if $system =~ /Cygwin/;
    $compiler = get $F77config{$system}{DEFAULT} unless $compiler;
 
-   print "$Pkg: Using system=$system compiler=" .
+   config_log "$Pkg: Using system=$system compiler=" .
        (defined $compiler ? $compiler : "<undefined>") . "\n";
 
    if (defined($ENV{F77LIBS})) {
-      print "Overriding Fortran libs from value of enviroment variable F77LIBS = $ENV{F77LIBS}\n";
+      config_log "Overriding Fortran libs from value of enviroment variable F77LIBS = $ENV{F77LIBS}\n";
       $Runtime = $ENV{F77LIBS};
    }
    else {
@@ -438,7 +442,7 @@ sub import {
 	   #(Note appending gcclibs seems to be no longer required)
 	   $Runtime =~ s|L([a-z,A-Z]):|L//$1|g if $^O =~ /cygwin/i;
            $Runtime = ' ' if $^O eq 'VMS';  # <-- need this space!
-	   print "Runtime: $Runtime\n";
+	   config_log "Runtime: $Runtime\n";
            $ok = 1;
      	   $ok = validate_libs($Runtime) if $flibs ne "";
 	}
@@ -449,7 +453,7 @@ sub import {
      # If it doesn't work try Generic + GNU77
 
       unless (("$Runtime" ne "-LSNAFU -lwontwork") && $ok) {
-     	print <<"EOD";
+     	config_log <<"EOD";
 $Pkg: Unable to guess and/or validate system/compiler configuration
 $Pkg: Will try system=Generic Compiler=$fallback_compiler
 EOD
@@ -460,7 +464,7 @@ EOD
     	 my $flibs = get ($F77config{$system}{$compiler}{Link});
     	 $Runtime =  $flibs ; #. gcclibs($flibs); #  Note gcclibs appears to be no longer required.
     	 $ok = validate_libs($Runtime) if $flibs ne "";
-    	 print "$Pkg: Well that didn't appear to validate. Well I will try it anyway.\n"
+    	 config_log "$Pkg: Well that didn't appear to validate. Well I will try it anyway.\n"
     	      unless $Runtime && $ok;
        }
 
@@ -474,7 +478,7 @@ EOD
       $Trail_  = get $F77config{$system}{$compiler}{Trail_};  
    }
    else{ 
-      print << "EOD";
+      config_log << "EOD";
 $Pkg: There does not appear to be any configuration info about
 $Pkg: names with trailing underscores for system $system. Will assume
 $Pkg: F77 names have trailing underscores.
@@ -485,18 +489,18 @@ EOD
    if (defined( $F77config{$system}{$compiler}{Compiler} )) {
 	$Compiler = get $F77config{$system}{$compiler}{Compiler};
    } else {
-	print << "EOD";
+	config_log << "EOD";
 $Pkg: There does not appear to be any configuration info about
 $Pkg: the F77 compiler name. Will assume 'f77'.
 EOD
 	$Compiler = 'f77';
    }
-print "$Pkg: Compiler: $Compiler\n";
+config_log "$Pkg: Compiler: $Compiler\n";
 
    if (defined( $F77config{$system}{$compiler}{Cflags} )) {
 	$Cflags = get $F77config{$system}{$compiler}{Cflags} ;
    } else {
-	print << "EOD";
+	config_log << "EOD";
 $Pkg: There does not appear to be any configuration info about
 $Pkg: the options for the F77 compiler. Will assume none
 $Pkg: necessary.
@@ -504,7 +508,7 @@ EOD
 	$Cflags = '';
    }
 
-   print "$Pkg: Cflags: $Cflags\n";
+   config_log "$Pkg: Cflags: $Cflags\n";
 
 } # End of import ()
 
@@ -568,7 +572,7 @@ sub any_exists {
 # Find highest version number of SCN.N(.N) directories
 # (Nasty SunOS/Solaris naming scheme for F77 libs]
 sub find_highest_SC {
-    print "$Pkg: Scanning for $_[0]\n";
+    config_log "$Pkg: Scanning for $_[0]\n";
     my @glob = glob(shift);
     my %n=();
     for (@glob) {
@@ -588,7 +592,7 @@ sub find_highest_SC {
 # Validate a string of form "-Ldir -lfoo -lbar"
 
 sub validate_libs {
-   print "$Pkg: Validating $_[0]   ";
+   config_log "$Pkg: Validating $_[0]   ";
    my @args = split(' ',shift());
    my $pat;
    my $ret = 1;
@@ -609,12 +613,12 @@ sub validate_libs {
          $pat = join(" ", map {$_."/lib".$1.".*"} @path); # Join dirs + file
          #print "Checking for $pat\n";
          unless (any_exists($pat)) {
-            print "\n$Pkg:    Unable to find library $_" ;
+            config_log "\n$Pkg:    Unable to find library $_" ;
             $ret = 0;
          }
        }
    }
-   print $ret ? "[ok]\n" : "\n";
+   config_log $ret ? "[ok]\n" : "\n";
    return $ret;
 }
 
@@ -629,16 +633,16 @@ sub testcompiler {
     print OUT "      print *, 'Hello World'\n";
     print OUT "      end\n";
     close(OUT);
-    print "Compiling the test Fortran program...\n";
+    config_log "Compiling the test Fortran program...\n";
     system "$Compiler $Cflags $file.f -o ${file}_exe";
-    print "Executing the test program...\n";
+    config_log "Executing the test program...\n";
     if (`${file}_exe` ne " Hello World\n") {
-       print "Test of Fortran Compiler FAILED. \n";
-       print "Do not know how to compile Fortran on your system\n";
+       config_log "Test of Fortran Compiler FAILED. \n";
+       config_log "Do not know how to compile Fortran on your system\n";
        $ret=0;
     }
     else{
-       print "Congratulations you seem to have a working f77!\n";
+       config_log "Congratulations you seem to have a working f77!\n";
        $ret=1;
     }
     unlink("${file}_exe"); unlink("$file.f"); unlink("$file.o") if -e "$file.o";
@@ -656,7 +660,7 @@ sub gcclibs {
    my $flibs = shift; # Fortran libs
    my $isgcc = $Config{'cc'} eq "$gcc";
    if (!$isgcc && $^O ne 'VMS') {
-      print "Checking for gcc in disguise:\n";
+      config_log "Checking for gcc in disguise:\n";
       $isgcc = 1 if $Config{gccversion};
       my $string;
       if ($isgcc) {
@@ -665,7 +669,7 @@ sub gcclibs {
       } else {
         $string = "Not gcc\n";
       }
-      print $string;
+      config_log $string;
    }
    if ($isgcc or ($flibs =~ /-lg2c/) or ($flibs =~ /-lf2c/) ) {
        # Don't link to libgcc on MS Windows iff we're using gfortran.
@@ -697,7 +701,7 @@ sub find_in_path {
       return $name if exists $CACHE{$name};
       for $dir (@path) {
          if (-x $dir."/$name") {
-	    print "Found compiler $name\n";
+	    config_log "Found compiler $name\n";
         $CACHE{$name}++;
 	    return $name;
 	  }
