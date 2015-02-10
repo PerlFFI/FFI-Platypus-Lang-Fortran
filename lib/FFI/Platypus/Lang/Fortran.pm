@@ -13,13 +13,25 @@ Fortran
 
 =head1 SYNOPSIS
 
-Fortran:
+Fortran 77:
 
- C Fortran function that adds two number together
+ C Fortran function that adds two numbers together
  C On Linux create a .so with: gfortran -shared -o libadd.so add.f
        FUNCTION ADD(IA, IB)
            ADD = IA + IB
        END
+
+Fortran 90/95:
+
+ ! Fortran function that adds two numbers together
+ ! On Linux create a .so with: gfortran -shared -o libadd.so add.f90
+ function add(a,b) result(ret)
+   implicit none
+   integer :: a
+   integer :: b
+   integer :: ret
+   ret = a + b
+ end function add
 
 Perl:
 

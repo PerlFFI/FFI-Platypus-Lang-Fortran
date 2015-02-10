@@ -44,6 +44,14 @@ $builder->add_to_cleanup(qw(
   libtest/*.so
   libtest/*.dylib
   libtest/*.bundle
+  libtest/90/*.o
+  libtest/90/*.so
+  libtest/90/*.dylib
+  libtest/90/*.bundle
+  libtest/95/*.o
+  libtest/95/*.so
+  libtest/95/*.dylib
+  libtest/95/*.bundle
   FFI-Platypus-Lang-Fortran-*
   config.log
 ));

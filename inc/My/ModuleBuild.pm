@@ -3,15 +3,25 @@ package My::ModuleBuild;
 use strict;
 use warnings;
 use FFI::Platypus;
+use File::Which qw( which );
 use base qw( Module::Build::FFI::Fortran );
 
 sub new
 {
   my($class, %args) = @_;
+
+  unlink 'config.log' if -e 'config.log';  
+  my $f77_config = $class->_f77_config;
+
+  $args{ffi_libtest_dir} = [ 'libtest' ];
+  push @{ $args{ffi_libtest_dir} }, 'libtest/f90'
+    if which($f77_config->{f90});
+  push @{ $args{ffi_libtest_dir} }, 'libtest/f95'
+    if which($f77_config->{f95});
+  
   my $self = $class->SUPER::new(%args);
   
-  unlink 'config.log' if -e 'config.log';  
-  $self->config_data(f77 => $self->_f77_config);
+  $self->config_data(f77 => $f77_config);
   
   my %type;
   my $ffi = FFI::Platypus->new;
