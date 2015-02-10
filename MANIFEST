@@ -2,6 +2,8 @@
 Build.PL
 Changes
 CONTRIBUTING
+examples/complex.f90
+examples/complex.pl
 examples/f77add.f
 examples/f77add.pl
 examples/fib.f90

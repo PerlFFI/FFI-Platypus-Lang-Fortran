@@ -167,6 +167,69 @@ EXAMPLES
     Discussion: Fortran 90 has "advanced" features such as recursion and
     pointers, which can now be used in Perl too.
 
+ Complex numbers
+
+    Fortran:
+
+     ! on Linux: gfortran -shared -fPIC -o libcomplex.so complex.f90
+     
+     subroutine complex_decompose(c,r,i)
+       implicit none
+       complex*16 :: c
+       real*8 :: r
+       real*8 :: i
+       
+       r = real(c)
+       i = aimag(c)
+     
+     end subroutine complex_decompose
+
+    Perl:
+
+     use FFI::Platypus;
+     use Math::Complex;
+     
+     my $ffi->lang('Fortran');
+     my $ffi->lib('./libcomplex.so');
+     
+     $ffi->attach(
+       complex_decompose => ['real_8[2]','real_8*','real_8*'] => 'void',
+       sub {
+         # wrapper around the Fortran function complex_decompose
+         # $decompose is a code ref to the real complex_decompose
+         # and $complex is the first argument passed int othe Perl
+         # function complex_decompose
+         my($decompose, $complex) = @_;
+         my $real;
+         my $imaginary;
+         # decompose the Perl complex number and pass it as a
+         # Fortran complex number
+         $decompose->([Re($complex),Im($complex)], \$real, \$imaginary);
+         # The decomposed real and imaginary parts are returned from
+         # Fortran.  We pass them back to the caller as a return value
+         ($real, $imaginary);
+       },
+     );
+     
+     my($r,$i) = complex_decompose(1.5 + 2.5*i);
+     
+     print "${r} + ${i}i\n";
+
+    Discussion: More recent versions of libffi support complex types, but
+    they are not supported by FFI::Platypus yet. There is a work around,
+    however, at least for complex types passes as arguments. They are
+    really two just two real*4 or real*8 types joined together like an
+    array or record of two elements. Thus we can pass in a complex type to
+    a Fortran subroutine as an array of two floating points. Take care
+    though, as this technique DOES NOT work for return types.
+
+    From my research, some Fortran compilers pass in the return address of
+    the return value as the first argument for functions that return a
+    complex type. This is not the case for Gnu Fortran, the compiler that I
+    have been testing with, but if your compiler does use this convention
+    you could pass in the "return value" as a two element array, as we did
+    in the above example. I have not been able to test this though.
+
 SUPPORT
 
     If something does not work as advertised, or the way that you think it
