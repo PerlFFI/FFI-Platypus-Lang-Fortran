@@ -6,9 +6,11 @@ build_requires:
   FFI::CheckLib: '0'
   File::Which: '0'
   Module::Build: '0.38'
+  Module::Build::FFI: '0.21'
 configure_requires:
   File::Which: '0'
   Module::Build: '0.38'
+  Module::Build::FFI: '0.21'
 dynamic_config: 1
 generated_by: 'Module::Build version 0.421, CPAN::Meta::Converter version 2.143240'
 license: perl
@@ -19,17 +21,18 @@ name: FFI-Platypus-Lang-Fortran
 provides:
   FFI::Platypus::Lang::Fortran:
     file: lib/FFI/Platypus/Lang/Fortran.pm
-    version: '0.01'
+    version: '0.02'
   Module::Build::FFI::Fortran:
     file: lib/Module/Build/FFI/Fortran.pm
-    version: '0.01'
+    version: '0.02'
   Module::Build::FFI::Fortran::ExtUtilsF77:
     file: lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm
-    version: '0.01'
+    version: '0.02'
 requires:
   FFI::Platypus: '0.21'
   File::Which: '0'
+  Module::Build::FFI: '0.21'
   perl: '5.008001'
 resources:
   license: http://dev.perl.org/licenses/
-version: '0.01'
+version: '0.02'

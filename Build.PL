@@ -16,21 +16,25 @@ my $builder = My::ModuleBuild->new(
   dist_author => [ 'Graham Ollis <plicease@cpan.org>' ],
   license => 'perl',
   configure_requires => {
-    'Module::Build' => 0.38,
+    'Module::Build'      => 0.38,
+    'Module::Build::FFI' => '0.21',
     'File::Which'   => 0,
   },
   build_requires => {
     'Module::Build' => 0.38,
     'File::Which'   => 0,
+    'Module::Build::FFI' => '0.21',
   },
   test_requires => {
     'FFI::CheckLib' => 0,
     'File::Which'   => 0,
+    'Module::Build::FFI' => '0.21',
   },
   requires => {
     'perl'          => '5.008001',
     'FFI::Platypus' => '0.21',
     'File::Which'   => 0,
+    'Module::Build::FFI' => '0.21',
   },
 );
 

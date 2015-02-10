@@ -1,4 +1,9 @@
 Revision history for Perl module FFI::Platypus::Lang::Fortran
 
+0.02 Tue Feb 10, 2015
+  - More examples
+  - Documentation enhancements
+  - First releae to CPAN
+
 0.01 Tue Feb 10, 2015
   - Initial version

@@ -17,41 +17,45 @@
       "build" : {
          "requires" : {
             "File::Which" : "0",
-            "Module::Build" : "0.38"
+            "Module::Build" : "0.38",
+            "Module::Build::FFI" : "0.21"
          }
       },
       "configure" : {
          "requires" : {
             "File::Which" : "0",
-            "Module::Build" : "0.38"
+            "Module::Build" : "0.38",
+            "Module::Build::FFI" : "0.21"
          }
       },
       "runtime" : {
          "requires" : {
             "FFI::Platypus" : "0.21",
             "File::Which" : "0",
+            "Module::Build::FFI" : "0.21",
             "perl" : "5.008001"
          }
       },
       "test" : {
          "requires" : {
             "FFI::CheckLib" : "0",
-            "File::Which" : "0"
+            "File::Which" : "0",
+            "Module::Build::FFI" : "0.21"
          }
       }
    },
    "provides" : {
       "FFI::Platypus::Lang::Fortran" : {
          "file" : "lib/FFI/Platypus/Lang/Fortran.pm",
-         "version" : "0.01"
+         "version" : "0.02"
       },
       "Module::Build::FFI::Fortran" : {
          "file" : "lib/Module/Build/FFI/Fortran.pm",
-         "version" : "0.01"
+         "version" : "0.02"
       },
       "Module::Build::FFI::Fortran::ExtUtilsF77" : {
          "file" : "lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm",
-         "version" : "0.01"
+         "version" : "0.02"
       }
    },
    "release_status" : "stable",
@@ -60,5 +64,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.01"
+   "version" : "0.02"
 }
