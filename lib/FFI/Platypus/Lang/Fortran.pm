@@ -82,7 +82,11 @@ Fortran uses a star to indicate the size of types.
 This module currently uses and is bundled with a fork of L<ExtUtils::F77>
 called L<Module::Build::FFI::Fortran::ExtUtilsF77>.  It is used to probe
 for a Fortran compiler, which can be problematic if you want to bundle
-Fortran 90 or Fortran 95 code.  We attempt to work around these limitations.
+Fortran 90 or Fortran 95 code, as it only knows about Fortran 77.  On some
+platforms (such as those using C<gfortran>) the same command is invoked to
+build all versions of fortran.  On some (usually those with a C<f77> command)
+a C<f90> or C<f95> command is required to build code for newer versions of
+Fortran.  We attempt to work around these limitations.
 
 =head1 METHODS
 
@@ -149,7 +153,49 @@ Perl:
  
  print "$value\n";
 
-A Fortran "subroutine" is just a function that doesn't return a value.
+B<Discussion>: A Fortran "subroutine" is just a function that doesn't 
+return a value.  In Fortran 77 variables that start wit the letter I are 
+integers unless declared otherwise.  Fortran is also pass by reference, 
+which means under the covers Fortran passes its arguments as pointers to 
+the data, and you have to remember to pass in a reference to a value in 
+Perl in cases where you would normally pass in a simple value to a C 
+function.
+
+=head2 Call Fortran 90 / 95
+
+Fortran:
+
+ ! on Linux: gfortran -shared -fPIC -o libfib.so fib.f90
+ 
+ recursive function fib(x) result(ret)
+   integer, intent(in) :: x
+   integer :: ret
+   
+   if (x == 1 .or. x == 2) then
+     ret = 1
+   else
+     ret = fib(x-1) + fib(x-2)
+   end if
+ 
+ end function fib
+
+Perl:
+
+ use FFI::Platypus;
+ 
+ my $ffi = FFI::Platypus->new;
+ $ffi->lang('Fortran');
+ $ffi->lib('./libfib.so');
+ 
+ $ffi->attach( fib => ['integer*'] => 'integer' );
+ 
+ for(1..10)
+ {
+   print fib(\$_), "\n";
+ }
+
+B<Discussion>: Fortran 90 has "advanced" features such as recursion and 
+pointers, which can now be used in Perl too.
 
 =head1 SUPPORT
 

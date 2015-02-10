@@ -4,6 +4,8 @@ Changes
 CONTRIBUTING
 examples/f77add.f
 examples/f77add.pl
+examples/fib.f90
+examples/fib.pl
 examples/sub.f
 examples/sub.pl
 inc/My/ModuleBuild.pm
