@@ -22,7 +22,6 @@
       },
       "configure" : {
          "requires" : {
-            "ExtUtils::F77" : "0",
             "File::Which" : "0",
             "Module::Build" : "0.38"
          }

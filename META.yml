@@ -7,7 +7,6 @@ build_requires:
   File::Which: '0'
   Module::Build: '0.38'
 configure_requires:
-  ExtUtils::F77: '0'
   File::Which: '0'
   Module::Build: '0.38'
 dynamic_config: 1

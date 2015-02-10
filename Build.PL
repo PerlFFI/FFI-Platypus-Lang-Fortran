@@ -17,7 +17,6 @@ my $builder = My::ModuleBuild->new(
   license => 'perl',
   configure_requires => {
     'Module::Build' => 0.38,
-    'ExtUtils::F77' => 0,
     'File::Which'   => 0,
   },
   build_requires => {

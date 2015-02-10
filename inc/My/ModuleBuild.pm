@@ -14,19 +14,13 @@ sub new
   require ExtUtils::F77;
   ExtUtils::F77->import();
   
-  unless(ExtUtils::F77::testcompiler())
-  {
-    print "Configuring and building this module requires a\n";
-    print "Fortran compiler.\n";
-    exit;
-  }
-  
   $self->config_data(
     f77 => {
       runtime             => ExtUtils::F77::runtime(),
       trailing_underscore => ExtUtils::F77::trail_(),
       compiler            => ExtUtils::F77::compiler(),
       cflags              => ExtUtils::F77::cflags(),
+      testcompiler        => ExtUtils::F77::testcompiler(),
     },
   );
   
