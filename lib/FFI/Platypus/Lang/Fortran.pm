@@ -261,6 +261,151 @@ convention you could pass in the "return value" as a two element array,
 as we did in the above example.  I have not been able to test this 
 though.
 
+=head2 Fixed length array
+
+Fortran:
+
+ ! on Linux: gfortran -shared -fPIC -o libfixed.so fixed.f90
+ 
+ subroutine print_array10(a)
+   implicit none
+   integer, dimension(10) :: a
+   integer :: i
+   do i=1,10
+     print *, a(i)
+   end do
+ end subroutine print_array10
+
+Perl:
+
+ use FFI::Platypus;
+ 
+ my $ffi = FFI::Platypus->new;
+ $ffi->lang('Fortran');
+ $ffi->lib('./libfixed.so');
+ 
+ $ffi->attach( print_array10  => ['integer[10]'] => 'void' );
+ my $array = [5,10,15,20,25,30,35,40,45,50];
+ print_array10($array);
+
+Output:
+
+            5
+           10
+           15
+           20
+           25
+           30
+           35
+           40
+           45
+           50
+
+B<Discussion>: In Fortran arrays are 1 indexed unlike Perl and C where 
+arrays are 0 indexed.  Perl arrays are passed in from Perl using 
+Platypus as a array reference.
+
+=head2 Multidimensional arrays
+
+Fortran:
+
+ ! On Linux gfortran -shared -fPIC -o libfixed2.so fixed2.f90
+ 
+ subroutine print_array2x5(a)
+   implicit none
+   integer, dimension(2,5) :: a
+   integer :: i,n
+   
+   do i=1,5
+     print *, a(1,i), a(2,i)
+   end do
+ end subroutine print_array2x5
+
+Perl:
+
+ use FFI::Platypus;
+ 
+ my $ffi = FFI::Platypus->new;
+ $ffi->lang('Fortran');
+ $ffi->lib('./libfixed.so');
+ 
+ $ffi->attach( print_array2x5 => ['integer[10]'] => 'void' );
+ my $array = [5,10,15,20,25,30,35,40,45,50];
+ print_array2x5($array);
+
+Output:
+
+            5          10
+           15          20
+           25          30
+           35          40
+           45          50
+
+B<Discussion>: Perl does not generally support multi-dimensional arrays 
+(though they can be achieved using lists of references).  In Fortran, 
+multidimensional arrays are stored as a contiguous series of bytes, so 
+you can pass in a single dimensional array to a Fortran function or 
+subroutine assuming it has sufficent number of values.
+
+Platypus updates any values that have been changed by Fortran when the 
+Fortran code returns.
+
+One thing to keep in mind is that Fortran arrays are "column-first", 
+which is the opposite of C/C++, which could be termed "row-first".
+
+=head2 Variable-length array
+
+Fortran:
+
+ ! On Linux gfortran -shared -fPIC -o libvar.so var.f90
+ 
+ function sum_array(size,a) result(ret)
+   implicit none
+   integer :: size
+   integer, dimension(size) :: a
+   integer :: i
+   integer :: ret
+   
+   ret = 0
+   
+   do i=1,size
+     ret = ret + a(i)
+   end do
+ end function sum_array
+
+Perl:
+
+ use FFI::Platypus;
+ 
+ my $ffi = FFI::Platypus->new;
+ $ffi->lang("Fortran");
+ $ffi->lib("./libvar_array.so");
+ 
+ sub sum_array
+ {
+   my $size = @_;
+   $ffi->function(
+     sum_array => ['integer*',"integer[$size]"] => 'integer'
+   )->call(\$size, \@_);
+ }
+ 
+ my @a = (1..10);
+ my @b = (25..30);
+
+ print sum_array(1..10), "\n";
+ print sum_array(25..30), "\n";
+
+Output:
+
+ 55
+ 165
+
+B<Discussion>: Fortran allows variable-length arrays.  Unfortunately 
+Platypus does not yet support this type.  In this example, we work 
+around this by creating an FFI function object with the correct type of 
+fixed length array and call that.  The downside to this is that it is 
+quite slow, but it does allow you to do it at least.
+
 =head1 SUPPORT
 
 If something does not work as advertised, or the way that you think it
