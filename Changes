@@ -1,5 +1,10 @@
 Revision history for Perl module FFI::Platypus::Lang::Fortran
 
+0.04 Thu Feb 12, 2015
+  - Fortran files will not be compiled unless they have changed.
+  - Variable length array example now uses Platypus variable length 
+    array feature (requires FFI::Platypus version 0.22)
+
 0.03 Wed Feb 11, 2015
   - More examples
   - Improved documentation
