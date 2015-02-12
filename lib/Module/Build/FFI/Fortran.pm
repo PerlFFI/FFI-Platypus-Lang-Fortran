@@ -112,6 +112,7 @@ sub ffi_build_dynamic_lib
   }
   
   my @obj;
+  my $count = 0;
   
   foreach my $dir (@$dirs)
   {
@@ -122,23 +123,30 @@ sub ffi_build_dynamic_lib
       $obj_name =~ s{\.(f|for|f90|f95)$}{$Config{obj_ext}};
       my $ext = $1;
       
-      $self->add_to_cleanup($obj_name);
+      my $source_time = (stat $filename)[9];
+      my $obj_time    = (stat $obj_name)[9];
       
-      my $compiler = $f77_config->{f77};
-      $compiler = $f77_config->{f90} if $ext eq 'f90';
-      $compiler = $f77_config->{f95} if $ext eq 'f95';
+      unless($obj_time >= $source_time)
+      {
+        $self->add_to_cleanup($obj_name);
       
-      my @cmd = (
-        $compiler,
-        '-c',
-        '-o' => $obj_name,
-        @cflags,
-        $filename,
-      );
+        my $compiler = $f77_config->{f77};
+        $compiler = $f77_config->{f90} if $ext eq 'f90';
+        $compiler = $f77_config->{f95} if $ext eq 'f95';
       
-      print "@cmd\n";
-      system @cmd;
-      exit 2 if $?;
+        my @cmd = (
+          $compiler,
+          '-c',
+          '-o' => $obj_name,
+          @cflags,
+          $filename,
+        );
+      
+        print "@cmd\n";
+        system @cmd;
+        exit 2 if $?;
+        $count++;
+      }
       
       $obj_name;
     
@@ -147,10 +155,13 @@ sub ffi_build_dynamic_lib
   
   my $b = $self->cbuilder;
   
+  my $libfile = $b->lib_file(File::Spec->catfile($dest_dir, $b->object_file("$name.c")));
+  return $libfile unless $count;
+  
   if($^O ne 'MSWin32')
   {
     return $b->link(
-      lib_file           => $b->lib_file(File::Spec->catfile($dest_dir, $b->object_file("$name.c"))),
+      lib_file           => $libfile,
       objects            => \@obj,
       extra_linker_flags => $self->extra_linker_flags,
     );
