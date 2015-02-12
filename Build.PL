@@ -41,18 +41,22 @@ my $builder = My::ModuleBuild->new(
 $builder->add_to_cleanup(qw(
   *.bak
   examples/*.o
+  examples/*.obj
   examples/*.so
   examples/*.dylib
   examples/*.bundle
   libtest/*.o
+  libtest/*.obj
   libtest/*.so
   libtest/*.dylib
   libtest/*.bundle
   libtest/90/*.o
+  libtest/90/*.obj
   libtest/90/*.so
   libtest/90/*.dylib
   libtest/90/*.bundle
   libtest/95/*.o
+  libtest/95/*.obj
   libtest/95/*.so
   libtest/95/*.dylib
   libtest/95/*.bundle

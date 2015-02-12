@@ -48,7 +48,7 @@ variable F77LIBS, e.g.
 
 =cut
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 
 BEGIN { eval q{ sub config_log {} } unless __PACKAGE__->can('config_log') }
 

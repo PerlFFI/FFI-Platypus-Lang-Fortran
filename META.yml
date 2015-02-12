@@ -21,13 +21,13 @@ name: FFI-Platypus-Lang-Fortran
 provides:
   FFI::Platypus::Lang::Fortran:
     file: lib/FFI/Platypus/Lang/Fortran.pm
-    version: '0.02'
+    version: '0.03'
   Module::Build::FFI::Fortran:
     file: lib/Module/Build/FFI/Fortran.pm
-    version: '0.02'
+    version: '0.03'
   Module::Build::FFI::Fortran::ExtUtilsF77:
     file: lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm
-    version: '0.02'
+    version: '0.03'
 requires:
   FFI::Platypus: '0.21'
   File::Which: '0'
@@ -35,4 +35,4 @@ requires:
   perl: '5.008001'
 resources:
   license: http://dev.perl.org/licenses/
-version: '0.02'
+version: '0.03'
