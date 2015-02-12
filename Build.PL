@@ -17,24 +17,24 @@ my $builder = My::ModuleBuild->new(
   license => 'perl',
   configure_requires => {
     'Module::Build'      => 0.38,
-    'Module::Build::FFI' => '0.21',
+    'Module::Build::FFI' => '0.22',
     'File::Which'   => 0,
   },
   build_requires => {
     'Module::Build' => 0.38,
     'File::Which'   => 0,
-    'Module::Build::FFI' => '0.21',
+    'Module::Build::FFI' => '0.22',
   },
   test_requires => {
     'FFI::CheckLib' => 0,
     'File::Which'   => 0,
-    'Module::Build::FFI' => '0.21',
+    'Module::Build::FFI' => '0.22',
   },
   requires => {
     'perl'          => '5.008001',
-    'FFI::Platypus' => '0.21',
+    'FFI::Platypus' => '0.22',
     'File::Which'   => 0,
-    'Module::Build::FFI' => '0.21',
+    'Module::Build::FFI' => '0.22',
   },
 );
 

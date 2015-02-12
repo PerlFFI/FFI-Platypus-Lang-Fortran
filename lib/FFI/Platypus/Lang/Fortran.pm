@@ -381,13 +381,13 @@ Perl:
  $ffi->lang("Fortran");
  $ffi->lib("./libvar_array.so");
  
- sub sum_array
- {
-   my $size = @_;
-   $ffi->function(
-     sum_array => ['integer*',"integer[$size]"] => 'integer'
-   )->call(\$size, \@_);
- }
+ $ffi->attach( sum_array => ['integer*','integer[]'] => 'integer',
+   sub {
+     my $f = shift;
+     my $size = scalar @_;
+     $f->(\$size, \@_);
+   },
+ );
  
  my @a = (1..10);
  my @b = (25..30);
@@ -400,11 +400,12 @@ Output:
  55
  165
 
-B<Discussion>: Fortran allows variable-length arrays.  Unfortunately 
-Platypus does not yet support this type.  In this example, we work 
-around this by creating an FFI function object with the correct type of 
-fixed length array and call that.  The downside to this is that it is 
-quite slow, but it does allow you to do it at least.
+B<Discussion>: Fortran allows variable-length arrays.  To indicate a 
+variable length array use the C<[]> notation without a length.  Note 
+that this works for argument types, where Perl knows the length of an 
+array, but it will not work for return types, where Perl has no way of 
+determining the size of the returned array (you can probably fake it 
+with an C<opaque> type and a wrapper function though).
 
 =head1 SUPPORT
 

@@ -6,13 +6,13 @@ build_requires:
   FFI::CheckLib: '0'
   File::Which: '0'
   Module::Build: '0.38'
-  Module::Build::FFI: '0.21'
+  Module::Build::FFI: '0.22'
 configure_requires:
   File::Which: '0'
   Module::Build: '0.38'
-  Module::Build::FFI: '0.21'
+  Module::Build::FFI: '0.22'
 dynamic_config: 1
-generated_by: 'Module::Build version 0.421, CPAN::Meta::Converter version 2.143240'
+generated_by: 'Module::Build version 0.4211, CPAN::Meta::Converter version 2.143240'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -29,9 +29,9 @@ provides:
     file: lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm
     version: '0.03'
 requires:
-  FFI::Platypus: '0.21'
+  FFI::Platypus: '0.22'
   File::Which: '0'
-  Module::Build::FFI: '0.21'
+  Module::Build::FFI: '0.22'
   perl: '5.008001'
 resources:
   license: http://dev.perl.org/licenses/

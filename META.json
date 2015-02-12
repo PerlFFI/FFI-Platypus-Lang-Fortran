@@ -4,7 +4,7 @@
       "Graham Ollis <plicease@cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.421",
+   "generated_by" : "Module::Build version 0.4211",
    "license" : [
       "perl_5"
    ],
@@ -18,21 +18,21 @@
          "requires" : {
             "File::Which" : "0",
             "Module::Build" : "0.38",
-            "Module::Build::FFI" : "0.21"
+            "Module::Build::FFI" : "0.22"
          }
       },
       "configure" : {
          "requires" : {
             "File::Which" : "0",
             "Module::Build" : "0.38",
-            "Module::Build::FFI" : "0.21"
+            "Module::Build::FFI" : "0.22"
          }
       },
       "runtime" : {
          "requires" : {
-            "FFI::Platypus" : "0.21",
+            "FFI::Platypus" : "0.22",
             "File::Which" : "0",
-            "Module::Build::FFI" : "0.21",
+            "Module::Build::FFI" : "0.22",
             "perl" : "5.008001"
          }
       },
@@ -40,7 +40,7 @@
          "requires" : {
             "FFI::CheckLib" : "0",
             "File::Which" : "0",
-            "Module::Build::FFI" : "0.21"
+            "Module::Build::FFI" : "0.22"
          }
       }
    },
