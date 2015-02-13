@@ -1,5 +1,8 @@
 Revision history for Perl module FFI::Platypus::Lang::Fortran
 
+0.05 Fri Feb 13, 2015
+  - Fix for 32/64 bit troubles on Solaris (gh#4)
+
 0.04 Thu Feb 12, 2015
   - Fortran files will not be compiled unless they have changed.
   - Variable length array example now uses Platypus variable length 

@@ -4,7 +4,7 @@
       "Graham Ollis <plicease@cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.4211",
+   "generated_by" : "Module::Build version 0.421",
    "license" : [
       "perl_5"
    ],
@@ -47,15 +47,15 @@
    "provides" : {
       "FFI::Platypus::Lang::Fortran" : {
          "file" : "lib/FFI/Platypus/Lang/Fortran.pm",
-         "version" : "0.04"
+         "version" : "0.05"
       },
       "Module::Build::FFI::Fortran" : {
          "file" : "lib/Module/Build/FFI/Fortran.pm",
-         "version" : "0.04"
+         "version" : "0.05"
       },
       "Module::Build::FFI::Fortran::ExtUtilsF77" : {
          "file" : "lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm",
-         "version" : "0.04"
+         "version" : "0.05"
       }
    },
    "release_status" : "stable",
@@ -64,5 +64,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.04"
+   "version" : "0.05"
 }
