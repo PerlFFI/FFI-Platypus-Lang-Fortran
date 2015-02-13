@@ -34,6 +34,7 @@ t/00_diag.t
 t/00_diag.txt
 t/01_use.t
 t/02_types.t
+t/examples.t
 t/f77_config.t
 t/ffi_platypus_attach.t
 t/lang.t
