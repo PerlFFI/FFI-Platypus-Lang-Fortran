@@ -1,8 +1,8 @@
 language: perl
 
-# remember need at least one install command, even if there are no
-# prereqs, else travis will try to install deps using cpanm
-# which is not what we want since this is a Dist::Zilla dist.
+before_install:
+  - sudo apt-get install gfortran
+
 install:
   - cpanm -n FFI::Platypus
   - cpanm -n File::Which
