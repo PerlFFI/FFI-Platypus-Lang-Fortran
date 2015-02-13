@@ -9,7 +9,7 @@ BEGIN {
     unless eval q{ use Capture::Tiny qw( capture_merged ); 1 };
 }
 
-plan skip_all => 'developer test' unless $ENV{USERNAME} eq 'ollisg' || $ENV{TRAVIS};
+plan skip_all => 'developer test' unless ($ENV{USERNAME}||'') eq 'ollisg' || $ENV{TRAVIS};
 plan skip_all => 'requires gfortran' unless which 'gfortran';
 plan skip_all => 'run ./Build first' unless -d 'blib';
 plan tests => 2;
