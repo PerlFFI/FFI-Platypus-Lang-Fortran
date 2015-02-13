@@ -92,9 +92,10 @@ sub ffi_build_dynamic_lib
   $dest_dir ||= $dirs->[0];
   
   my $f77_config = $self->_f77_config;
-  my @cflags = (
+  my @cflags = grep !/^-[DI]/, (
     shellwords($f77_config->{cflags}),
     # hopefully the Fortran compiler understands the same flags as the C compiler
+    shellwords($Config{ccflags}),
     shellwords($Config{cccdlflags}),
     shellwords($Config{optimize})
   );
