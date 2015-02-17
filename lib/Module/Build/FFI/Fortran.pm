@@ -216,6 +216,8 @@ TODO
 
 =head1 SEE ALSO
 
+=over 4
+
 =item L<FFI::Platypus>
 
 The Core Platypus documentation.
