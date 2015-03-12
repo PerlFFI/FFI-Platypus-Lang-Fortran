@@ -13,6 +13,11 @@
       "version" : "2"
    },
    "name" : "FFI-Platypus-Lang-Fortran",
+   "no_index" : {
+      "directory" : [
+         "examples"
+      ]
+   },
    "prereqs" : {
       "build" : {
          "requires" : {
@@ -60,9 +65,15 @@
    },
    "release_status" : "stable",
    "resources" : {
+      "bugtracker" : {
+         "web" : "http://github.com/plicease/FFI-Platypus-Lang-Fortran/issues"
+      },
       "license" : [
          "http://dev.perl.org/licenses/"
-      ]
+      ],
+      "repository" : {
+         "url" : "http://github.com/plicease/FFI-Platypus-Lang-Fortran"
+      }
    },
    "version" : "0.06"
 }

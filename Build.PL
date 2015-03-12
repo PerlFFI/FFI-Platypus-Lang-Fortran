@@ -36,6 +36,15 @@ my $builder = My::ModuleBuild->new(
     'File::Which'   => 0,
     'Module::Build::FFI' => '0.22',
   },
+  meta_merge => {
+    resources  => {
+      repository => "http://github.com/plicease/FFI-Platypus-Lang-Fortran",
+      bugtracker => "http://github.com/plicease/FFI-Platypus-Lang-Fortran/issues",
+    },
+    no_index => {
+      directory => [ 'examples' ],
+    },
+  },  
 );
 
 $builder->add_to_cleanup(qw(
