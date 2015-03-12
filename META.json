@@ -52,15 +52,15 @@
    "provides" : {
       "FFI::Platypus::Lang::Fortran" : {
          "file" : "lib/FFI/Platypus/Lang/Fortran.pm",
-         "version" : "0.06"
+         "version" : "0.07"
       },
       "Module::Build::FFI::Fortran" : {
          "file" : "lib/Module/Build/FFI/Fortran.pm",
-         "version" : "0.06"
+         "version" : "0.07"
       },
       "Module::Build::FFI::Fortran::ExtUtilsF77" : {
          "file" : "lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm",
-         "version" : "0.06"
+         "version" : "0.07"
       }
    },
    "release_status" : "stable",
@@ -75,5 +75,5 @@
          "url" : "http://github.com/plicease/FFI-Platypus-Lang-Fortran"
       }
    },
-   "version" : "0.06"
+   "version" : "0.07"
 }

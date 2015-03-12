@@ -9,7 +9,7 @@ use Text::ParseWords qw( shellwords );
 use File::Spec;
 use base qw( Module::Build::FFI );
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 =head1 NAME
 
