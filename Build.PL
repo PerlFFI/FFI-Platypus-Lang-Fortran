@@ -40,6 +40,7 @@ my $builder = My::ModuleBuild->new(
     resources  => {
       repository => "http://github.com/plicease/FFI-Platypus-Lang-Fortran",
       bugtracker => "http://github.com/plicease/FFI-Platypus-Lang-Fortran/issues",
+      x_IRC => "irc://irc.perl.org/#native",
     },
     no_index => {
       directory => [ 'examples' ],
