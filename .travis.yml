@@ -5,6 +5,7 @@ before_install:
 
 install:
   - cpanm -n FFI::Platypus
+  - cpanm -n Module::Build::FFI
   - cpanm -n File::Which
   - cpanm -n Capture::Tiny
 
