@@ -13,10 +13,10 @@ sub new
   unlink 'config.log' if -e 'config.log';  
   my $f77_config = $class->_f77_config;
 
-  $args{ffi_libtest_dir} = [ 'libtest' ];
-  push @{ $args{ffi_libtest_dir} }, 'libtest/f90'
+  $args{ffi_libtest_dir} = [ 't/ffi' ];
+  push @{ $args{ffi_libtest_dir} }, 't/ffi/f90'
     if which($f77_config->{f90});
-  push @{ $args{ffi_libtest_dir} }, 'libtest/f95'
+  push @{ $args{ffi_libtest_dir} }, 't/ffi/f95'
     if which($f77_config->{f95});
   
   my $self = $class->SUPER::new(%args);

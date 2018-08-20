@@ -55,21 +55,21 @@ $builder->add_to_cleanup(qw(
   examples/*.so
   examples/*.dylib
   examples/*.bundle
-  libtest/*.o
-  libtest/*.obj
-  libtest/*.so
-  libtest/*.dylib
-  libtest/*.bundle
-  libtest/90/*.o
-  libtest/90/*.obj
-  libtest/90/*.so
-  libtest/90/*.dylib
-  libtest/90/*.bundle
-  libtest/95/*.o
-  libtest/95/*.obj
-  libtest/95/*.so
-  libtest/95/*.dylib
-  libtest/95/*.bundle
+  t/ffi/*.o
+  t/ffi/*.obj
+  t/ffi/*.so
+  t/ffi/*.dylib
+  t/ffi/*.bundle
+  t/ffi/90/*.o
+  t/ffi/90/*.obj
+  t/ffi/90/*.so
+  t/ffi/90/*.dylib
+  t/ffi/90/*.bundle
+  t/ffi/95/*.o
+  t/ffi/95/*.obj
+  t/ffi/95/*.so
+  t/ffi/95/*.dylib
+  t/ffi/95/*.bundle
   FFI-Platypus-Lang-Fortran-*
   config.log
 ));

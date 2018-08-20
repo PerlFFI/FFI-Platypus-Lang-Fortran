@@ -12,3 +12,4 @@
 *.bundle
 *.dylib
 /config.log
+*.swp
