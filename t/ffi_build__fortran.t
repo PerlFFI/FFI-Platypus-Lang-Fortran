@@ -53,6 +53,12 @@ subtest 'Fortran' => sub {
   my $ok = 1;
 
   $ok &&= is(
+    eval { $ffi->function( add1 => [ 'integer*', 'integer*' ] => 'integer' )->call(\1,\2) } || diag($@),
+    3,
+    'FORTRAN 77',
+  );
+
+  $ok &&= is(
     eval { $ffi->function( add2 => [ 'integer*', 'integer*' ] => 'integer' )->call(\1,\2) } || diag($@),
     3,
     'Fortran 90',
@@ -62,12 +68,6 @@ subtest 'Fortran' => sub {
     eval { $ffi->function( add3 => [ 'integer*', 'integer*' ] => 'integer' )->call(\1,\2) } || diag($@),
     3,
     'Fortran 95',
-  );
-
-  $ok &&= is(
-    eval { $ffi->function( add1 => [ 'integer*', 'integer*' ] => 'integer' )->call(\1,\2) } || diag($@),
-    3,
-    'FORTRAN 77',
   );
 
   unless($ok)

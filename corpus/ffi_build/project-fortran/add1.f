@@ -1,3 +1,3 @@
-      FUNCTION ADD1(IA, IB)
+      INTEGER FUNCTION ADD1(IA, IB)
           ADD1 = IA + IB
       END
