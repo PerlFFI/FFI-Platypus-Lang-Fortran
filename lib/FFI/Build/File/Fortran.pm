@@ -28,7 +28,7 @@ File class for Fortran source files.
 
 sub accept_suffix
 {
-  (qr/\.f(90|95)?$/)
+  (qr/\.f(90|95|or)?$/)
 }
 
 sub cc
