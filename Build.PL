@@ -29,12 +29,14 @@ my $builder = My::ModuleBuild->new(
     'FFI::CheckLib' => 0,
     'File::Which'   => 0,
     'Module::Build::FFI' => '0.22',
+    'FFI::Build'    => '0.04',
   },
   requires => {
     'perl'          => '5.008001',
     'FFI::Platypus' => '0.22',
     'File::Which'   => 0,
     'Module::Build::FFI' => '0.22',
+    'FFI::Build'    => '0.04',
   },
   meta_merge => {
     resources  => {
