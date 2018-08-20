@@ -18,6 +18,7 @@ my $builder = My::ModuleBuild->new(
   configure_requires => {
     'Module::Build'      => 0.38,
     'Module::Build::FFI' => '0.22',
+    'FFI::Platypus'      => '0.22',
     'File::Which'   => 0,
   },
   build_requires => {
