@@ -48,20 +48,24 @@ sub new
   $type{'double precision'} = $type{real_8} = 'double';
   $type{'real_4'} = $type{'real'} = 'float';
   
-  if(eval { $ffi->type('complex' => 'foo1'); 1 })
-  {
-    $type{'complex'} = $type{'complex_8'} = 'complex';
-  }
-
-  if(eval { $ffi->type('complex_double' => 'foo2'); 1 })
-  {
-    $type{'double complex'} = $type{'complex_16'} = 'complex_double';
-  }
-
-  if(eval { $ffi->type('long double' => 'foo3'); 1 })
-  {
-    $type{'real_16'} = 'long double';
-  }
+  ## these are the correct platypus types, but since
+  ## pointers to complex types aren't supported yet,
+  ## there isn't much point.  The array workaround is
+  ## the current recommendation.
+  #if(eval { $ffi->type('complex' => 'foo1'); 1 })
+  #{
+  #  $type{'complex'} = $type{'complex_8'} = 'complex';
+  #}
+  #
+  #if(eval { $ffi->type('complex_double' => 'foo2'); 1 })
+  #{
+  #  $type{'double complex'} = $type{'complex_16'} = 'complex_double';
+  #}
+  #
+  #if(eval { $ffi->type('long double' => 'foo3'); 1 })
+  #{
+  #  $type{'real_16'} = 'long double';
+  #}
   
   # TODO:
   #  COMPLEX*32      = { long double, long double }

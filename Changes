@@ -3,7 +3,6 @@ Revision history for Perl module FFI::Platypus::Lang::Fortran
   - Moved repository to Perl5-FFI GitHub org
   - Moved FFI::Build::File::Fortran from FFI-Build into this dist
   - FFI::Build is now a dependency for this dist
-  - Add support for COMPLEX, DOUBLE COMPLEX and REAL*16 types
 
 0.07 Thu Mar 12, 2015
   - Updated distribution meta to include links to correct issue
