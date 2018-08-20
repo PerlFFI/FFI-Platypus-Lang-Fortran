@@ -4,7 +4,7 @@ before_install:
   - sudo apt-get install gfortran
 
 install:
-  - cpanm -n --installdeps .
+  - cpanm -n --installdeps -v .
 
 perl:
   - "5.8"

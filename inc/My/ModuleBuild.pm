@@ -48,13 +48,23 @@ sub new
   $type{'double precision'} = $type{real_8} = 'double';
   $type{'real_4'} = $type{'real'} = 'float';
   
+  if(eval { $ffi->type('complex' => 'foo1'); 1 })
+  {
+    $type{'complex'} = $type{'complex_4'} = 'complex';
+  }
+
+  if(eval { $ffi->type('complex_double' => 'foo2'); 1 })
+  {
+    $type{'double complex'} = $type{'complex_16'} = 'complex_double';
+  }
+
+  if(eval { $ffi->type('long double' => 'foo3'); 1 })
+  {
+    $type{'real_16'} = 'long double';
+  }
+  
   # TODO:
-  #  COMPLEX         = { float, float }
-  #  COMPLEX*8       = { float, float }
-  #  DOUBLE COMPLEX  = { double, double }
-  #  COMPLEX*16      = { double, double }
   #  COMPLEX*32      = { long double, long double }
-  #  REAL*16         = long double
   
   $self->config_data(
     type => \%type,
