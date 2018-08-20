@@ -50,7 +50,7 @@ sub new
   
   if(eval { $ffi->type('complex' => 'foo1'); 1 })
   {
-    $type{'complex'} = $type{'complex_4'} = 'complex';
+    $type{'complex'} = $type{'complex_8'} = 'complex';
   }
 
   if(eval { $ffi->type('complex_double' => 'foo2'); 1 })
