@@ -43,6 +43,18 @@ sub ld
   $self->platform->for;
 }
 
+sub _filter
+{
+  grep { $_ ne '-no-cpp-precomp' && $_ !~ /^-[DI]/ } @_;
+}
+
+# TODO: this should use a public interface
+sub _base_args
+{
+  my($self) = @_;
+  map { ref $_ ? [_filter(@$_)] : _filter($_) } $self->SUPER::_base_args;
+}
+
 1;
 
 =head1 SEE ALSO
