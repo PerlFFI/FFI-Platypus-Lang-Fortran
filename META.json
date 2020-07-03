@@ -4,7 +4,7 @@
       "Graham Ollis <plicease@cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.4229",
+   "generated_by" : "Module::Build version 0.4231",
    "license" : [
       "perl_5"
    ],
@@ -48,7 +48,8 @@
             "FFI::Build" : "0.04",
             "FFI::CheckLib" : "0",
             "File::Which" : "0",
-            "Module::Build::FFI" : "0.22"
+            "Module::Build::FFI" : "0.22",
+            "Test::More" : "0.98"
          }
       }
    },
@@ -73,16 +74,16 @@
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "http://github.com/Perl5-FFI/FFI-Platypus-Lang-Fortran/issues"
+         "web" : "http://github.com/PerlFFI/FFI-Platypus-Lang-Fortran/issues"
       },
       "license" : [
          "http://dev.perl.org/licenses/"
       ],
       "repository" : {
-         "url" : "http://github.com/Perl5-FFI/FFI-Platypus-Lang-Fortran"
+         "url" : "http://github.com/PerlFFI/FFI-Platypus-Lang-Fortran"
       },
       "x_IRC" : "irc://irc.perl.org/#native"
    },
    "version" : "0.10",
-   "x_serialization_backend" : "JSON::PP version 4.02"
+   "x_serialization_backend" : "JSON::PP version 4.04"
 }
