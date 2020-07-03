@@ -8,13 +8,14 @@ build_requires:
   File::Which: '0'
   Module::Build: '0.38'
   Module::Build::FFI: '0.22'
+  Test::More: '0.98'
 configure_requires:
   FFI::Platypus: '0.22'
   File::Which: '0'
   Module::Build: '0.38'
   Module::Build::FFI: '0.22'
 dynamic_config: 1
-generated_by: 'Module::Build version 0.4229, CPAN::Meta::Converter version 2.150010'
+generated_by: 'Module::Build version 0.4231, CPAN::Meta::Converter version 2.150010'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -44,8 +45,8 @@ requires:
   perl: '5.008001'
 resources:
   IRC: irc://irc.perl.org/#native
-  bugtracker: http://github.com/Perl5-FFI/FFI-Platypus-Lang-Fortran/issues
+  bugtracker: http://github.com/PerlFFI/FFI-Platypus-Lang-Fortran/issues
   license: http://dev.perl.org/licenses/
-  repository: http://github.com/Perl5-FFI/FFI-Platypus-Lang-Fortran
+  repository: http://github.com/PerlFFI/FFI-Platypus-Lang-Fortran
 version: '0.10'
 x_serialization_backend: 'CPAN::Meta::YAML version 0.018'
