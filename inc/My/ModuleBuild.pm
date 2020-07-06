@@ -86,11 +86,6 @@ sub ACTION_dist
   # $self->delete_filetree($dist_dir);
 }
 
-sub ACTION_readme
-{
-  system $^X, 'inc/run/readme.pl';
-}
-
 sub Module::Build::FFI::Fortran::ExtUtilsF77::config_log
 {
   my $config_log;
