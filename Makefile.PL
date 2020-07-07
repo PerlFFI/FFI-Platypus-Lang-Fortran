@@ -94,10 +94,9 @@ my %WriteMakefileArgs = (
   TEST_REQUIRES => {
   },
   PREREQ_PM => {
-    'FFI::Platypus'      => '1.00',
-    'File::Which'        => '0',
-    'Module::Build::FFI' => '0.22',
-    'FFI::Build'         => '1.00',
+    'FFI::Platypus' => '1.00',
+    'File::Which'   => '0',
+    'FFI::Build'    => '1.00',
   },
   META_MERGE => {
     'meta-spec' => { version => 2 },
