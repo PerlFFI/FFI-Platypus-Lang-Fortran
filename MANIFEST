@@ -25,7 +25,6 @@ INSTALL
 lib/FFI/Build/File/Fortran.pm
 lib/FFI/Platypus/Lang/Fortran.pm
 lib/Module/Build/FFI/Fortran.pm
-lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm
 LICENSE
 maint/cip-before-install
 maint/readme.pl

@@ -79,15 +79,6 @@ Fortran is pass by reference, which means that you need to pass pointers.
 Confusingly Platypus uses a star (C<*>) suffix to indicate a pointer, and
 Fortran uses a star to indicate the size of types.
 
-This module currently uses and is bundled with a fork of L<ExtUtils::F77>
-called L<Module::Build::FFI::Fortran::ExtUtilsF77>.  It is used to probe
-for a Fortran compiler, which can be problematic if you want to bundle
-Fortran 90 or Fortran 95 code, as it only knows about Fortran 77.  On some
-platforms (such as those using C<gfortran>) the same command is invoked to
-build all versions of fortran.  On some (usually those with a C<f77> command)
-a C<f90> or C<f95> command is required to build code for newer versions of
-Fortran.  We attempt to work around these limitations.
-
 =head1 METHODS
 
 Generally you will not use this class directly, instead interacting with
@@ -470,46 +461,6 @@ This software is copyright (c) 2015 by Graham Ollis
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
-
-This software comes bundled with a forked version of L<ExtUtils::F77>
-called L<Module::Build::FFI::Fortran::ExtUtilsF77>.
-L<ExtUtils::F77> comes with this statement regarding its license:
-
-  Copyright (c) 2001 by Karl Glazebrook. All rights reserved.  This distribution 
-  is free software; you can redistribute it and/or modify it under the same 
-  terms as Perl itself.
-
-  THIS SOFTWARE IS PROVIDED BY THE CONTRIBUTORS ``AS IS'' AND ANY EXPRESS
-  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-  ARE DISCLAIMED.  IN NO EVENT SHALL THE CONTRIBUTORS BE LIABLE FOR ANY
-  DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-  OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-  HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-  STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
-  IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-  POSSIBILITY OF SUCH DAMAGE.
-
-  BECAUSE THE PROGRAM IS LICENSED FREE OF CHARGE, THERE IS NO WARRANTY
-  FOR THE PROGRAM, TO THE EXTENT PERMITTED BY APPLICABLE LAW.  EXCEPT WHEN
-  OTHERWISE STATED IN WRITING THE COPYRIGHT HOLDERS AND/OR OTHER PARTIES
-  PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER
-  EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS
-  WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF
-  ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
-
-  IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
-  WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR
-  REDISTRIBUTE THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR
-  DAMAGES, INCLUDING ANY GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL
-  DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM
-  (INCLUDING BUT NOT LIMITED TO LOSS OF DATA OR DATA BEING RENDERED
-  INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF
-  THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS), EVEN IF SUCH HOLDER
-  OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 =cut
 

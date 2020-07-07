@@ -19,7 +19,8 @@ my $builder = My::ModuleBuild->new(
     'Module::Build'      => 0.38,
     'Module::Build::FFI' => '0.22',
     'FFI::Platypus'      => '0.22',
-    'File::Which'   => 0,
+    'File::Which'        => 0,
+    'ExtUtils::F77'      => 0,
   },
   build_requires => {
     'Module::Build' => 0.38,
@@ -39,6 +40,7 @@ my $builder = My::ModuleBuild->new(
     'File::Which'   => 0,
     'Module::Build::FFI' => '0.22',
     'FFI::Build'    => '0.04',
+    'ExtUtils::F77'      => 0,
   },
   meta_merge => {
     resources  => {
