@@ -33,7 +33,6 @@ MANIFEST			This list of files
 README
 SUPPORT
 t/00_diag.t
-t/00_diag.txt
 t/01_use.t
 t/02_types.t
 t/examples.t
