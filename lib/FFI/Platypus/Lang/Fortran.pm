@@ -2,9 +2,10 @@ package FFI::Platypus::Lang::Fortran;
 
 use strict;
 use warnings;
-use FFI::Platypus::Lang::Fortran::ConfigData;
+use File::ShareDir::Dist qw( dist_config );
 
 our $VERSION = '0.10';
+my $config = dist_config 'FFI-Platypus-Lang-Fortran';
 
 =head1 NAME
 
@@ -97,7 +98,7 @@ are libffi native types.
 
 sub native_type_map
 {
-  FFI::Platypus::Lang::Fortran::ConfigData->config('type');
+  $config->{'type'};
 }
 
 =head2 mangler
@@ -113,7 +114,7 @@ sub mangler
 {
   my($class, @libs) = @_;
   
-  FFI::Platypus::Lang::Fortran::ConfigData->config('f77')->{'trailing_underscore'}
+  $config->{'f77'}->{'trailing_underscore'}
   ? sub { return "$_[0]_" }
   : sub { $_[0] };
 }
