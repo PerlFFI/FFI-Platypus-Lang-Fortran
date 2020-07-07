@@ -28,7 +28,7 @@ SYNOPSIS
     Perl:
 
      use FFI::Platypus 1.00;
-    
+     
      my $ffi = FFI::Platypus->new( api => 1 );
      $ffi->lang('Fortran');
      $ffi->lib('./libadd.so'); # or add.dll on Windows
@@ -133,7 +133,7 @@ EXAMPLES
      recursive function fib(x) result(ret)
        integer, intent(in) :: x
        integer :: ret
-       
+     
        if (x == 1 .or. x == 2) then
          ret = 1
        else
@@ -171,7 +171,7 @@ EXAMPLES
        complex*16 :: c
        real*8 :: r
        real*8 :: i
-       
+     
        r = real(c)
        i = aimag(c)
      
@@ -181,7 +181,7 @@ EXAMPLES
 
      use FFI::Platypus 1.00;
      use Math::Complex;
-    
+     
      my $ffi = FFI::Platypus->new( api => 1 );
      $ffi->lang('Fortran');
      $ffi->lib('./libcomplex.so');
@@ -279,7 +279,7 @@ EXAMPLES
        implicit none
        integer, dimension(2,5) :: a
        integer :: i,n
-       
+     
        do i=1,5
          print *, a(1,i), a(2,i)
        end do
@@ -329,9 +329,9 @@ EXAMPLES
        integer, dimension(size) :: a
        integer :: i
        integer :: ret
-       
+     
        ret = 0
-       
+     
        do i=1,size
          ret = ret + a(i)
        end do
@@ -355,7 +355,7 @@ EXAMPLES
      
      my @a = (1..10);
      my @b = (25..30);
-    
+     
      print sum_array(1..10), "\n";
      print sum_array(25..30), "\n";
 

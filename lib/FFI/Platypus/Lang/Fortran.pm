@@ -4,7 +4,7 @@ use strict;
 use warnings;
 use File::ShareDir::Dist qw( dist_config );
 
-our $VERSION = '0.10';
+our $VERSION = '0.12';
 my $config = dist_config 'FFI-Platypus-Lang-Fortran';
 
 =head1 NAME
