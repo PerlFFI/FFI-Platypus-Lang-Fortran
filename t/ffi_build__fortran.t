@@ -18,16 +18,16 @@ subtest 'Fortran' => sub {
 
   plan skip_all => 'Test requires Fortran compiler'
     unless eval { FFI::Build::Platform->which(FFI::Build::Platform->for) };
-  
+
   plan skip_all => 'Test requires FFI::Platypus::Lang::Fortran'
     unless eval { require FFI::Platypus::Lang::Fortran };
 
-  my $build = FFI::Build->new('foo', 
+  my $build = FFI::Build->new('foo',
     dir       => tempdir( "tmpbuild.XXXXXX", DIR => 'corpus/ffi_build/project-fortran' ),
     buildname => "tmpbuild.$$.@{[ time ]}",
     verbose   => 1,
   );
-  
+
   $build->source('corpus/ffi_build/project-fortran/add*.f*');
   note "$_" for $build->source;
 
@@ -47,7 +47,7 @@ subtest 'Fortran' => sub {
   {
     note $out;
   }
-  
+
   my $ffi = FFI::Platypus->new( api => 1 );
   $ffi->lang('Fortran');
   $ffi->lib($dll);
@@ -65,7 +65,7 @@ subtest 'Fortran' => sub {
     3,
     'Fortran 90',
   );
-  
+
   $ok &&= is(
     eval { $ffi->function( add3 => [ 'integer*', 'integer*' ] => 'integer' )->call(\1,\2) } || diag($@),
     3,
@@ -94,7 +94,7 @@ subtest 'Fortran' => sub {
       };
     }
   }
-  
+
   cleanup(
     $build->file->dirname,
     File::Spec->catdir(qw( corpus ffi_build project-fortran ), $build->buildname)

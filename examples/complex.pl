@@ -30,4 +30,4 @@ $ffi->attach(
 
 my($r,$i) = complex_decompose(1.5 + 2.5*i);
 
-print "${r} + ${i}i\n"; 
+print "${r} + ${i}i\n";

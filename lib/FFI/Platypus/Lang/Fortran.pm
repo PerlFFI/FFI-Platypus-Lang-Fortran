@@ -37,7 +37,7 @@ Fortran 90/95:
 Perl:
 
  use FFI::Platypus 1.00;
-
+ 
  my $ffi = FFI::Platypus->new( api => 1 );
  $ffi->lang('Fortran');
  $ffi->lib('./libadd.so'); # or add.dll on Windows
@@ -115,7 +115,7 @@ Returns a subroutine reference that will "mangle" Fortran names.
 sub mangler
 {
   my($class, @libs) = @_;
-  
+
   $config->{'f77'}->{'trailing_underscore'}
   ? sub { return "$_[0]_" }
   : sub { $_[0] };
@@ -147,12 +147,12 @@ Perl:
  
  print "$value\n";
 
-B<Discussion>: A Fortran "subroutine" is just a function that doesn't 
-return a value.  In Fortran 77 variables that start wit the letter I are 
-integers unless declared otherwise.  Fortran is also pass by reference, 
-which means under the covers Fortran passes its arguments as pointers to 
-the data, and you have to remember to pass in a reference to a value in 
-Perl in cases where you would normally pass in a simple value to a C 
+B<Discussion>: A Fortran "subroutine" is just a function that doesn't
+return a value.  In Fortran 77 variables that start wit the letter I are
+integers unless declared otherwise.  Fortran is also pass by reference,
+which means under the covers Fortran passes its arguments as pointers to
+the data, and you have to remember to pass in a reference to a value in
+Perl in cases where you would normally pass in a simple value to a C
 function.
 
 =head2 Call Fortran 90 / 95
@@ -164,7 +164,7 @@ Fortran:
  recursive function fib(x) result(ret)
    integer, intent(in) :: x
    integer :: ret
-   
+ 
    if (x == 1 .or. x == 2) then
      ret = 1
    else
@@ -188,7 +188,7 @@ Perl:
    print fib(\$_), "\n";
  }
 
-B<Discussion>: Fortran 90 has "advanced" features such as recursion and 
+B<Discussion>: Fortran 90 has "advanced" features such as recursion and
 pointers, which can now be used in Perl too.
 
 =head2 Complex numbers
@@ -202,7 +202,7 @@ Fortran:
    complex*16 :: c
    real*8 :: r
    real*8 :: i
-   
+ 
    r = real(c)
    i = aimag(c)
  
@@ -212,7 +212,7 @@ Perl:
 
  use FFI::Platypus 1.00;
  use Math::Complex;
-
+ 
  my $ffi = FFI::Platypus->new( api => 1 );
  $ffi->lang('Fortran');
  $ffi->lib('./libcomplex.so');
@@ -243,19 +243,19 @@ Perl:
 B<Discussion>: More recent versions of C<libffi> and L<FFI::Platypus>
 support complex types, but not pointers to complex types, so they
 aren't (yet) much use when calling Fortran, which is pass by reference.
-There is a work  around, however, at least for complex types passes as 
+There is a work  around, however, at least for complex types passes as
 arguments.  They are really two just two C<real*4> or C<real*8> types
 joined together like an array or record of two elements.  Thus we can
 pass in a complex type to a Fortran subroutine as an array of two
 floating points.  Take  care though, as this technique DOES NOT work
 for return types.
 
-From my research, some Fortran compilers pass in the return address of 
-the return value as the first argument for functions that return a 
-C<complex> type.  This is not the case for Gnu Fortran, the compiler 
-that I have been testing with, but if your compiler does use this 
-convention you could pass in the "return value" as a two element array, 
-as we did in the above example.  I have not been able to test this 
+From my research, some Fortran compilers pass in the return address of
+the return value as the first argument for functions that return a
+C<complex> type.  This is not the case for Gnu Fortran, the compiler
+that I have been testing with, but if your compiler does use this
+convention you could pass in the "return value" as a two element array,
+as we did in the above example.  I have not been able to test this
 though.
 
 =head2 Fixed length array
@@ -298,8 +298,8 @@ Output:
            45
            50
 
-B<Discussion>: In Fortran arrays are 1 indexed unlike Perl and C where 
-arrays are 0 indexed.  Perl arrays are passed in from Perl using 
+B<Discussion>: In Fortran arrays are 1 indexed unlike Perl and C where
+arrays are 0 indexed.  Perl arrays are passed in from Perl using
 Platypus as a array reference.
 
 =head2 Multidimensional arrays
@@ -312,7 +312,7 @@ Fortran:
    implicit none
    integer, dimension(2,5) :: a
    integer :: i,n
-   
+ 
    do i=1,5
      print *, a(1,i), a(2,i)
    end do
@@ -338,16 +338,16 @@ Output:
            35          40
            45          50
 
-B<Discussion>: Perl does not generally support multi-dimensional arrays 
-(though they can be achieved using lists of references).  In Fortran, 
-multidimensional arrays are stored as a contiguous series of bytes, so 
-you can pass in a single dimensional array to a Fortran function or 
+B<Discussion>: Perl does not generally support multi-dimensional arrays
+(though they can be achieved using lists of references).  In Fortran,
+multidimensional arrays are stored as a contiguous series of bytes, so
+you can pass in a single dimensional array to a Fortran function or
 subroutine assuming it has sufficent number of values.
 
-Platypus updates any values that have been changed by Fortran when the 
+Platypus updates any values that have been changed by Fortran when the
 Fortran code returns.
 
-One thing to keep in mind is that Fortran arrays are "column-first", 
+One thing to keep in mind is that Fortran arrays are "column-first",
 which is the opposite of C/C++, which could be termed "row-first".
 
 =head2 Variable-length array
@@ -362,9 +362,9 @@ Fortran:
    integer, dimension(size) :: a
    integer :: i
    integer :: ret
-   
+ 
    ret = 0
-   
+ 
    do i=1,size
      ret = ret + a(i)
    end do
@@ -388,7 +388,7 @@ Perl:
  
  my @a = (1..10);
  my @b = (25..30);
-
+ 
  print sum_array(1..10), "\n";
  print sum_array(25..30), "\n";
 
@@ -397,11 +397,11 @@ Output:
  55
  165
 
-B<Discussion>: Fortran allows variable-length arrays.  To indicate a 
-variable length array use the C<[]> notation without a length.  Note 
-that this works for argument types, where Perl knows the length of an 
-array, but it will not work for return types, where Perl has no way of 
-determining the size of the returned array (you can probably fake it 
+B<Discussion>: Fortran allows variable-length arrays.  To indicate a
+variable length array use the C<[]> notation without a length.  Note
+that this works for argument types, where Perl knows the length of an
+array, but it will not work for return types, where Perl has no way of
+determining the size of the returned array (you can probably fake it
 with an C<opaque> type and a wrapper function though).
 
 =head1 SUPPORT
