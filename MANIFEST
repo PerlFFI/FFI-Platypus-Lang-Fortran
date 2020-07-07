@@ -1,6 +1,5 @@
 .gitattributes
 .travis.yml
-Build.PL
 Changes
 CONTRIBUTING
 corpus/ffi_build/project-fortran/add1.f
@@ -20,7 +19,7 @@ examples/sub.f
 examples/sub.pl
 examples/var_array.f90
 examples/var_array.pl
-inc/My/ModuleBuild.pm
+inc/mymm-build.pl
 INSTALL
 lib/FFI/Build/File/Fortran.pm
 lib/FFI/Platypus/Lang/Fortran.pm
@@ -29,9 +28,8 @@ LICENSE
 maint/cip-before-install
 maint/readme.pl
 maint/releaseprep
+Makefile.PL
 MANIFEST			This list of files
-META.json
-META.yml
 README
 SUPPORT
 t/00_diag.t
