@@ -27,7 +27,9 @@ SYNOPSIS
 
     Perl:
 
-     use FFI::Platypus;
+     use FFI::Platypus 1.00;
+    
+     my $ffi = FFI::Platypus->new( api => 1 );
      $ffi->lang('Fortran');
      $ffi->lib('./libadd.so'); # or add.dll on Windows
      
@@ -101,9 +103,9 @@ EXAMPLES
 
     Perl:
 
-     use FFI::Platypus;
+     use FFI::Platypus 1.00;
      
-     my $ffi = FFI::Platypus->new;
+     my $ffi = FFI::Platypus->new( api => 1 );
      $ffi->lang('Fortran');
      $ffi->lib('./libsub.so');
      
@@ -142,9 +144,9 @@ EXAMPLES
 
     Perl:
 
-     use FFI::Platypus;
+     use FFI::Platypus 1.00;
      
-     my $ffi = FFI::Platypus->new;
+     my $ffi = FFI::Platypus->new( api => 1 );
      $ffi->lang('Fortran');
      $ffi->lib('./libfib.so');
      
@@ -177,11 +179,12 @@ EXAMPLES
 
     Perl:
 
-     use FFI::Platypus;
+     use FFI::Platypus 1.00;
      use Math::Complex;
-     
-     my $ffi->lang('Fortran');
-     my $ffi->lib('./libcomplex.so');
+    
+     my $ffi = FFI::Platypus->new( api => 1 );
+     $ffi->lang('Fortran');
+     $ffi->lib('./libcomplex.so');
      
      $ffi->attach(
        complex_decompose => ['real_8[2]','real_8*','real_8*'] => 'void',
@@ -239,9 +242,9 @@ EXAMPLES
 
     Perl:
 
-     use FFI::Platypus;
+     use FFI::Platypus 1.00;
      
-     my $ffi = FFI::Platypus->new;
+     my $ffi = FFI::Platypus->new( api => 1 );
      $ffi->lang('Fortran');
      $ffi->lib('./libfixed.so');
      
@@ -284,9 +287,9 @@ EXAMPLES
 
     Perl:
 
-     use FFI::Platypus;
+     use FFI::Platypus 1.00;
      
-     my $ffi = FFI::Platypus->new;
+     my $ffi = FFI::Platypus->new( api => 1 );
      $ffi->lang('Fortran');
      $ffi->lib('./libfixed.so');
      
@@ -336,9 +339,9 @@ EXAMPLES
 
     Perl:
 
-     use FFI::Platypus;
+     use FFI::Platypus 1.00;
      
-     my $ffi = FFI::Platypus->new;
+     my $ffi = FFI::Platypus->new( api => 1 );
      $ffi->lang("Fortran");
      $ffi->lib("./libvar_array.so");
      
@@ -411,7 +414,7 @@ SEE ALSO
 
       The Core Platypus documentation.
 
-    Module::Build::FFI::Fortran
+    FFI::Build + FFI::Build::File::Fortran
 
       Bundle Fortran with your FFI / Perl extension.
 
