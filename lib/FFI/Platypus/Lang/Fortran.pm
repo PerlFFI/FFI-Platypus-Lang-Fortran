@@ -36,7 +36,9 @@ Fortran 90/95:
 
 Perl:
 
- use FFI::Platypus;
+ use FFI::Platypus 1.00;
+
+ my $ffi = FFI::Platypus->new( api => 1 );
  $ffi->lang('Fortran');
  $ffi->lib('./libadd.so'); # or add.dll on Windows
  
@@ -132,9 +134,9 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus;
+ use FFI::Platypus 1.00;
  
- my $ffi = FFI::Platypus->new;
+ my $ffi = FFI::Platypus->new( api => 1 );
  $ffi->lang('Fortran');
  $ffi->lib('./libsub.so');
  
@@ -173,9 +175,9 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus;
+ use FFI::Platypus 1.00;
  
- my $ffi = FFI::Platypus->new;
+ my $ffi = FFI::Platypus->new( api => 1 );
  $ffi->lang('Fortran');
  $ffi->lib('./libfib.so');
  
@@ -208,11 +210,12 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus;
+ use FFI::Platypus 1.00;
  use Math::Complex;
- 
- my $ffi->lang('Fortran');
- my $ffi->lib('./libcomplex.so');
+
+ my $ffi = FFI::Platypus->new( api => 1 );
+ $ffi->lang('Fortran');
+ $ffi->lib('./libcomplex.so');
  
  $ffi->attach(
    complex_decompose => ['real_8[2]','real_8*','real_8*'] => 'void',
@@ -272,9 +275,9 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus;
+ use FFI::Platypus 1.00;
  
- my $ffi = FFI::Platypus->new;
+ my $ffi = FFI::Platypus->new( api => 1 );
  $ffi->lang('Fortran');
  $ffi->lib('./libfixed.so');
  
@@ -317,9 +320,9 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus;
+ use FFI::Platypus 1.00;
  
- my $ffi = FFI::Platypus->new;
+ my $ffi = FFI::Platypus->new( api => 1 );
  $ffi->lang('Fortran');
  $ffi->lib('./libfixed.so');
  
@@ -369,9 +372,9 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus;
+ use FFI::Platypus 1.00;
  
- my $ffi = FFI::Platypus->new;
+ my $ffi = FFI::Platypus->new( api => 1 );
  $ffi->lang("Fortran");
  $ffi->lib("./libvar_array.so");
  
@@ -446,7 +449,7 @@ maintainer.  Extreme caution: if you like that sort of thing.
 
 The Core Platypus documentation.
 
-=item L<Module::Build::FFI::Fortran>
+=item L<FFI::Build> + L<FFI::Build::File::Fortran>
 
 Bundle Fortran with your FFI / Perl extension.
 

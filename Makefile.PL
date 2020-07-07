@@ -40,7 +40,7 @@ use File::ShareDir::Dist::Install qw( install_config_set );
 
 {
   my %type;
-  my $ffi = FFI::Platypus->new;
+  my $ffi = FFI::Platypus->new( api => 1 );
 
   foreach my $size (qw( 1 2 4 8 ))
   {

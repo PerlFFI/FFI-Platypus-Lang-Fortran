@@ -1,9 +1,7 @@
-/Build
 /*.bak
 /*.tmp
 /MYMETA.json
 /MYMETA.yml
-/_build
 /blib
 /FFI-Platypus-Lang-Fortran-*
 *.o
@@ -13,3 +11,5 @@
 *.dylib
 /config.log
 *.swp
+/Makefile
+/pm_to_blib

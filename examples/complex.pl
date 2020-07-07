@@ -1,9 +1,9 @@
 use strict;
 use warnings;
-use FFI::Platypus;
+use FFI::Platypus 1.00;
 use Math::Complex;
 
-my $ffi = FFI::Platypus->new;
+my $ffi = FFI::Platypus->new( api => 1 );
 $ffi->lang('Fortran');
 $ffi->lib('./libcomplex.so');
 
