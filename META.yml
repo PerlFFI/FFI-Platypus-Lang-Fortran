@@ -10,6 +10,7 @@ build_requires:
   Module::Build::FFI: '0.22'
   Test::More: '0.98'
 configure_requires:
+  ExtUtils::F77: '0'
   FFI::Platypus: '0.22'
   File::Which: '0'
   Module::Build: '0.38'
@@ -34,10 +35,8 @@ provides:
   Module::Build::FFI::Fortran:
     file: lib/Module/Build/FFI/Fortran.pm
     version: '0.10'
-  Module::Build::FFI::Fortran::ExtUtilsF77:
-    file: lib/Module/Build/FFI/Fortran/ExtUtilsF77.pm
-    version: '0.10'
 requires:
+  ExtUtils::F77: '0'
   FFI::Build: '0.04'
   FFI::Platypus: '0.51'
   File::Which: '0'

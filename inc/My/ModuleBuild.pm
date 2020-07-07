@@ -82,12 +82,4 @@ sub ACTION_dist
   # $self->delete_filetree($dist_dir);
 }
 
-sub Module::Build::FFI::Fortran::ExtUtilsF77::config_log
-{
-  my $config_log;
-  open $config_log, '>>', 'config.log';
-  print $config_log @_;
-  close $config_log;
-}
-
 1;

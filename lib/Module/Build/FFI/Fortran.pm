@@ -180,8 +180,8 @@ sub ffi_build_dynamic_lib
 
 sub _f77
 {
-  return if $INC{'Module/Build/FFI/Fortran/ExtUtilsF77.pm'};
-  eval qq{ use Module::Build::FFI::Fortran::ExtUtilsF77; };
+  return if $INC{'ExtUtils/F77.pm'};
+  eval qq{ use ExtUtils::F77; };
   die $@ if $@;
 }
 
@@ -189,10 +189,10 @@ sub _f77_config
 {
   _f77();
   my $config = {
-    runtime             => Module::Build::FFI::Fortran::ExtUtilsF77::runtime(),
-    trailing_underscore => Module::Build::FFI::Fortran::ExtUtilsF77::trail_(),
-    cflags              => Module::Build::FFI::Fortran::ExtUtilsF77::cflags(),
-    f77                 => Module::Build::FFI::Fortran::ExtUtilsF77::compiler(),
+    runtime             => ExtUtils::F77::runtime(),
+    trailing_underscore => ExtUtils::F77::trail_(),
+    cflags              => ExtUtils::F77::cflags(),
+    f77                 => ExtUtils::F77::compiler(),
   };
 
   # Just guessing...
@@ -208,7 +208,7 @@ sub _f77_config
 sub _f77_testcompiler
 {
   _f77();
-  Module::Build::FFI::Fortran::ExtUtilsF77::testcompiler();
+  ExtUtils::F77::testcompiler();
 }
 
 1;
