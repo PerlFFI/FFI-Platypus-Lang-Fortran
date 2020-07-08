@@ -5,3 +5,4 @@ set -ex
 cip sudo apt-get update
 cip sudo apt-get -y install gfortran libffi-dev
 
+cip exec cpanm -n FFI::Platypus File::Which ExtUtils::F77 File::ShareDir::Dist
