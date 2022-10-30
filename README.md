@@ -140,17 +140,15 @@ This example is similar to the previous and uses the same addition
 operation, but it returns the value in an argument instead of as the
 result of a function.
 
-## Call Fortran 90 / 95
+## Calling recursive Fortran 90 / 95 Functions
 
-Fortran:
+### Fortran
 
 ```
-! on Linux: gfortran -shared -fPIC -o libfib.so fib.f90
-
 recursive function fib(x) result(ret)
   integer, intent(in) :: x
   integer :: ret
-
+  
   if (x == 1 .or. x == 2) then
     ret = 1
   else
@@ -160,14 +158,14 @@ recursive function fib(x) result(ret)
 end function fib
 ```
 
-Perl:
+### Perl
 
 ```perl
 use FFI::Platypus 2.00;
 
 my $ffi = FFI::Platypus->new( api => 2 );
 $ffi->lang('Fortran');
-$ffi->lib('./libfib.so');
+$ffi->lib('./fib.so');
 
 $ffi->attach( fib => ['integer*'] => 'integer' );
 
@@ -177,8 +175,28 @@ for(1..10)
 }
 ```
 
-**Discussion**: Fortran 90 has "advanced" features such as recursion and
-pointers, which can now be used in Perl too.
+### Execute
+
+```
+$ gfortran -shared fib.f90 -o fib.so
+$ perl fib.pl 
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
+```
+
+### Discussion
+
+If you have a newer Fortran compiler that understands Fortran 90 or 95,
+you can take advantage of its advanced features like recursion and
+pointers.  In this example we compute 10 Fibonacci numbers.
 
 ## Complex numbers
 
