@@ -4,13 +4,26 @@ use strict;
 use warnings;
 use File::ShareDir::Dist qw( dist_config );
 
-our $VERSION = '0.12';
+# ABSTRACT: FFI::Platypus::Lang::Fortran
+# VERSION
+
 my $config = dist_config 'FFI-Platypus-Lang-Fortran';
 
-=head1 NAME
+sub native_type_map
+{
+  $config->{'type'};
+}
 
-FFI::Platypus::Lang::Fortran - Documentation and tools for using Platypus with
-Fortran
+sub mangler
+{
+  my($class, @libs) = @_;
+
+  $config->{'f77'}->{'trailing_underscore'}
+  ? sub { return "$_[0]_" }
+  : sub { $_[0] };
+}
+
+1;
 
 =head1 SYNOPSIS
 
@@ -55,7 +68,7 @@ This module provides native types and demangling for Fortran when
 used with L<FFI::Platypus>.
 
 This module is somewhat experimental.  It is also available for adoption
-for anyone either sufficiently knowledgable about Fortran or eager enough to
+for anyone either sufficiently knowledgeable about Fortran or eager enough to
 learn enough about Fortran.  If you are interested, please send me a pull
 request or two on the project's GitHub.
 
@@ -96,30 +109,12 @@ This returns a hash reference containing the native aliases for
 Fortran.  That is the keys are native Fortran types and the values
 are libffi native types.
 
-=cut
-
-sub native_type_map
-{
-  $config->{'type'};
-}
-
 =head2 mangler
 
  my $mangler = FFI::Platypus::Lang::Fortran->mangler($ffi->libs);
  my $c_name = $mangler->($fortran_name);
 
 Returns a subroutine reference that will "mangle" Fortran names.
-
-=cut
-
-sub mangler
-{
-  my($class, @libs) = @_;
-
-  $config->{'f77'}->{'trailing_underscore'}
-  ? sub { return "$_[0]_" }
-  : sub { $_[0] };
-}
 
 =head1 EXAMPLES
 
@@ -252,7 +247,7 @@ for return types.
 
 From my research, some Fortran compilers pass in the return address of
 the return value as the first argument for functions that return a
-C<complex> type.  This is not the case for Gnu Fortran, the compiler
+C<complex> type.  This is not the case for GNU Fortran, the compiler
 that I have been testing with, but if your compiler does use this
 convention you could pass in the "return value" as a two element array,
 as we did in the above example.  I have not been able to test this
@@ -342,7 +337,7 @@ B<Discussion>: Perl does not generally support multi-dimensional arrays
 (though they can be achieved using lists of references).  In Fortran,
 multidimensional arrays are stored as a contiguous series of bytes, so
 you can pass in a single dimensional array to a Fortran function or
-subroutine assuming it has sufficent number of values.
+subroutine assuming it has sufficient number of values.
 
 Platypus updates any values that have been changed by Fortran when the
 Fortran code returns.
@@ -415,7 +410,7 @@ L<https://github.com/plicease/FFI-Platypus-Lang-Fortran/issues>
 =head1 CONTRIBUTING
 
 If you have implemented a new feature or fixed a bug then you may make a
-pull reequest on this project's GitHub repository:
+pull request on this project's GitHub repository:
 
 L<https://github.com/plicease/FFI-Platypus-Lang-Fortran/pulls>
 
@@ -455,16 +450,4 @@ Bundle Fortran with your FFI / Perl extension.
 
 =back
 
-=head1 AUTHOR
-
-Graham Ollis E<lt>plicease@cpan.orgE<gt>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2015 by Graham Ollis
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
-
