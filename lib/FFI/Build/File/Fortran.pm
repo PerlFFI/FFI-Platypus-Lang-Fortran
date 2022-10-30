@@ -29,7 +29,7 @@ sub ld
 
 sub _filter
 {
-  grep { $_ ne '-no-cpp-precomp' && $_ !~ /^-[DI]/ } @_;
+  grep { $_ ne '-no-cpp-precomp' && $_ !~ /^-[DI]/ } @_;  ## no critic (RegularExpressions::ProhibitUselessTopic)
 }
 
 # TODO: this should use a public interface
