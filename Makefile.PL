@@ -33,12 +33,13 @@ my %WriteMakefileArgs = (
     'FFI::Build::MM'       => 0,
   },
   TEST_REQUIRES => {
-    'Test2::V0'  => '0',
+    'Test2::V0'  => '0.000121',
   },
   PREREQ_PM => {
     'FFI::Platypus' => '2.00',
     'File::Which'   => '0',
     'FFI::Build'    => '1.00',
+    'File::Path'    => '2.04',
   },
   META_MERGE => {
     'meta-spec' => { version => 2 },
