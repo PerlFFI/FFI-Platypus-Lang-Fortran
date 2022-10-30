@@ -89,33 +89,6 @@ C<integer*4>.
 
 =back
 
-=head1 CAVEATS
-
-Fortran is pass by reference, which means that you need to pass pointers.
-Confusingly Platypus uses a star (C<*>) suffix to indicate a pointer, and
-Fortran uses a star to indicate the size of types.
-
-=head1 METHODS
-
-Generally you will not use this class directly, instead interacting with
-the L<FFI::Platypus> instance.  However, the public methods used by
-Platypus are documented here.
-
-=head2 native_type_map
-
- my $hashref = FFI::Platypus::Lang::Fortran->native_type_map;
-
-This returns a hash reference containing the native aliases for
-Fortran.  That is the keys are native Fortran types and the values
-are libffi native types.
-
-=head2 mangler
-
- my $mangler = FFI::Platypus::Lang::Fortran->mangler($ffi->libs);
- my $c_name = $mangler->($fortran_name);
-
-Returns a subroutine reference that will "mangle" Fortran names.
-
 =head1 EXAMPLES
 
 =head2 Call a subroutine
@@ -399,6 +372,27 @@ array, but it will not work for return types, where Perl has no way of
 determining the size of the returned array (you can probably fake it
 with an C<opaque> type and a wrapper function though).
 
+=head1 METHODS
+
+Generally you will not use this class directly, instead interacting with
+the L<FFI::Platypus> instance.  However, the public methods used by
+Platypus are documented here.
+
+=head2 native_type_map
+
+ my $hashref = FFI::Platypus::Lang::Fortran->native_type_map;
+
+This returns a hash reference containing the native aliases for
+Fortran.  That is the keys are native Fortran types and the values
+are libffi native types.
+
+=head2 mangler
+
+ my $mangler = FFI::Platypus::Lang::Fortran->mangler($ffi->libs);
+ my $c_name = $mangler->($fortran_name);
+
+Returns a subroutine reference that will "mangle" Fortran names.
+
 =head1 SUPPORT
 
 If something does not work as advertised, or the way that you think it
@@ -435,6 +429,12 @@ improve things.
 
 Caution: if you do this too frequently I may nominate you as the new
 maintainer.  Extreme caution: if you like that sort of thing.
+
+=head1 CAVEATS
+
+Fortran is pass by reference, which means that you need to pass pointers.
+Confusingly Platypus uses a star (C<*>) suffix to indicate a pointer, and
+Fortran uses a star to indicate the size of types.
 
 =head1 SEE ALSO
 
