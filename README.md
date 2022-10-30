@@ -64,37 +64,6 @@ For types, `_` is used instead of `*`, so use `integer_4` instead of
 - logical, logical\_1, logical\_2, logical\_4, logical\_8
 - real, real\_4, real\_8, double precision
 
-# CAVEATS
-
-Fortran is pass by reference, which means that you need to pass pointers.
-Confusingly Platypus uses a star (`*`) suffix to indicate a pointer, and
-Fortran uses a star to indicate the size of types.
-
-# METHODS
-
-Generally you will not use this class directly, instead interacting with
-the [FFI::Platypus](https://metacpan.org/pod/FFI::Platypus) instance.  However, the public methods used by
-Platypus are documented here.
-
-## native\_type\_map
-
-```perl
-my $hashref = FFI::Platypus::Lang::Fortran->native_type_map;
-```
-
-This returns a hash reference containing the native aliases for
-Fortran.  That is the keys are native Fortran types and the values
-are libffi native types.
-
-## mangler
-
-```perl
-my $mangler = FFI::Platypus::Lang::Fortran->mangler($ffi->libs);
-my $c_name = $mangler->($fortran_name);
-```
-
-Returns a subroutine reference that will "mangle" Fortran names.
-
 # EXAMPLES
 
 ## Call a subroutine
@@ -408,6 +377,31 @@ array, but it will not work for return types, where Perl has no way of
 determining the size of the returned array (you can probably fake it
 with an `opaque` type and a wrapper function though).
 
+# METHODS
+
+Generally you will not use this class directly, instead interacting with
+the [FFI::Platypus](https://metacpan.org/pod/FFI::Platypus) instance.  However, the public methods used by
+Platypus are documented here.
+
+## native\_type\_map
+
+```perl
+my $hashref = FFI::Platypus::Lang::Fortran->native_type_map;
+```
+
+This returns a hash reference containing the native aliases for
+Fortran.  That is the keys are native Fortran types and the values
+are libffi native types.
+
+## mangler
+
+```perl
+my $mangler = FFI::Platypus::Lang::Fortran->mangler($ffi->libs);
+my $c_name = $mangler->($fortran_name);
+```
+
+Returns a subroutine reference that will "mangle" Fortran names.
+
 # SUPPORT
 
 If something does not work as advertised, or the way that you think it
@@ -444,6 +438,12 @@ improve things.
 
 Caution: if you do this too frequently I may nominate you as the new
 maintainer.  Extreme caution: if you like that sort of thing.
+
+# CAVEATS
+
+Fortran is pass by reference, which means that you need to pass pointers.
+Confusingly Platypus uses a star (`*`) suffix to indicate a pointer, and
+Fortran uses a star to indicate the size of types.
 
 # SEE ALSO
 
