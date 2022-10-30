@@ -9,9 +9,9 @@ BEGIN {
     unless eval q{ use Capture::Tiny qw( capture_merged ); 1 };
 }
 
-plan skip_all => 'developer test' unless ($ENV{USERNAME}||'') eq 'ollisg' || $ENV{TRAVIS};
+plan skip_all => 'developer test set FFI_PLATYPUS_LANG_FORTRAN_TEST_EXAMPLES=1 to run' unless $ENV{FFI_PLATYPUS_LANG_FORTRAN_TEST_EXAMPLES} || $ENV{CIPSOMETHING};
 plan skip_all => 'requires gfortran' unless which 'gfortran';
-plan skip_all => 'run ./Build first' unless -d 'blib';
+plan skip_all => 'run EUMM first' unless -d 'blib';
 plan tests => 2;
 
 chdir 'examples';
