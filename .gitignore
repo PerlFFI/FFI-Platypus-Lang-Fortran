@@ -13,3 +13,4 @@
 *.swp
 /Makefile
 /pm_to_blib
+/share

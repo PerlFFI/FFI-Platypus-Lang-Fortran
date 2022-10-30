@@ -3,7 +3,15 @@ use warnings;
 use FFI::Platypus 2.00;
 use File::Which qw( which );
 use ExtUtils::F77;
+use File::chdir;
 use File::ShareDir::Dist::Install qw( install_config_set );
+
+unless(caller)
+{
+  *File::ShareDir::Dist::Install::install_dir = sub {
+    'share';
+  };
+}
 
 {
   my $config = {

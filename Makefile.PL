@@ -27,6 +27,7 @@ my %WriteMakefileArgs = (
     'File::Which'                   => '0',
     'ExtUtils::F77'                 => '1.24',
     'File::ShareDir::Dist::Install' => '0.07',
+    'File::chdir'                   => '0',
   },
   BUILD_REQUIRES => {
     'File::ShareDir::Dist' => 0,
@@ -71,6 +72,7 @@ my %WriteMakefileArgs = (
       t/ffi/*.bundle
       t/ffi/_build
       FFI-Platypus-Lang-Fortran-*
+      share
       config.log
     ))
   },
