@@ -98,25 +98,26 @@ and Fortran compiler.
 
 ## Calling a subroutine
 
-Fortran:
+### Fortran
 
-```perl
-C Compile with gfortran -shared -o libsub.so sub.f
-      SUBROUTINE ADD(IRESULT, IA, IB)
-          IRESULT = IA + IB
-      END
+```
+   SUBROUTINE ADD(IRESULT, IA, IB)
+       IRESULT = IA + IB
+   END
 ```
 
-Perl:
+### Perl
 
 ```perl
 use FFI::Platypus 2.00;
 
-my $ffi = FFI::Platypus->new( api => 2 );
-$ffi->lang('Fortran');
-$ffi->lib('./libsub.so');
+my $ffi = FFI::Platypus->new(
+  api  => 2,
+  lang => 'Fortran',
+  lib  => './sub.so',
+);
 
-$ffi->attach( add => ['integer*','integer*','integer*'] => 'void');
+$ffi->attach( add => ['integer*','integer*','integer*'] );
 
 my $value = 0;
 add(\$value, \1, \2);
@@ -124,13 +125,20 @@ add(\$value, \1, \2);
 print "$value\n";
 ```
 
-**Discussion**: A Fortran "subroutine" is just a function that doesn't
-return a value.  In Fortran 77 variables that start wit the letter I are
-integers unless declared otherwise.  Fortran is also pass by reference,
-which means under the covers Fortran passes its arguments as pointers to
-the data, and you have to remember to pass in a reference to a value in
-Perl in cases where you would normally pass in a simple value to a C
-function.
+### Execute
+
+```perl
+$ gfortran -shared sub.f -o sub.so
+$ perl sub.pl 
+3
+```
+
+### Discussion
+
+A Fortran "subroutine" is just a function that doesn't return a value.
+This example is similar to the previous and uses the same addition
+operation, but it returns the value in an argument instead of as the
+result of a function.
 
 ## Call Fortran 90 / 95
 

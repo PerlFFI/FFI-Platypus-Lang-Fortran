@@ -8,7 +8,7 @@ my $ffi = FFI::Platypus->new(
   lib  => './sub.so',
 );
 
-$ffi->attach( add => ['integer*','integer*','integer*'] => 'void');
+$ffi->attach( add => ['integer*','integer*','integer*'] );
 
 my $value = 0;
 add(\$value, \1, \2);
