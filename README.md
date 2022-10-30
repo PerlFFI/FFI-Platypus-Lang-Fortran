@@ -49,6 +49,9 @@ For types, `_` is used instead of `*`, so use `integer_4` instead of
 
 # EXAMPLES
 
+The examples in this discussion are bundled with this distribution and can
+be found in the `examples` directory.
+
 ## Passing and Returning Integers
 
 ### Fortran

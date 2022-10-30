@@ -64,6 +64,9 @@ C<integer*4>.
 
 =head1 EXAMPLES
 
+The examples in this discussion are bundled with this distribution and can
+be found in the C<examples> directory.
+
 =head2 Passing and Returning Integers
 
 =head3 Fortran
