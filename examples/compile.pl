@@ -4,7 +4,7 @@ use File::Glob qw( bsd_glob );
 
 foreach my $src_file (bsd_glob("*.{f,for,f90,f95}"))
 {
-  # this works in Linux with Gnu Fortran
+  # this works in Linux with GNU Fortran
   # , consult your Fortran compiler manual
   # for the appropriate command
   my $so_file = $src_file;

@@ -7,24 +7,8 @@ use base qw( FFI::Build::File::C );
 use constant default_suffix => '.f';
 use constant default_encoding => ':utf8';
 
-our $VERSION = '0.12';
-
-=head1 NAME
-
-FFI::Build::File::Fortran - Class to track Fortran source file in FFI::Build
-Fortran
-
-=head1 SYNOPSIS
-
- use FFI::Build::File::Fortran;
- 
- my $c = FFI::Build::File::C->new('src/foo.f');
-
-=head1 DESCRIPTION
-
-File class for Fortran source files.
-
-=cut
+# ABSTRACT: Class to track Fortran source file in FFI::Build
+# VERSION
 
 sub accept_suffix
 {
@@ -56,6 +40,16 @@ sub _base_args
 }
 
 1;
+
+=head1 SYNOPSIS
+
+ use FFI::Build::File::Fortran;
+ 
+ my $c = FFI::Build::File::C->new('src/foo.f');
+
+=head1 DESCRIPTION
+
+File class for Fortran source files.
 
 =head1 SEE ALSO
 
