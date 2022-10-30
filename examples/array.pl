@@ -5,7 +5,7 @@ use FFI::Platypus 2.00;
 my $ffi = FFI::Platypus->new(
   api  => 2,
   lang => 'Fortran',
-  lib  => 'array.so',
+  lib  => './array.so',
 );
 
 $ffi->attach( print_array10  => ['integer[10]'] => 'void' );
