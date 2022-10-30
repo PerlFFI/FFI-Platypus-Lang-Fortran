@@ -9,7 +9,7 @@ use File::Temp qw( tempdir );
 use Capture::Tiny qw( capture_merged );
 use File::Spec;
 use File::Path qw( rmtree );
-use FFI::Platypus 1.00;
+use FFI::Platypus 2.00;
 use File::Glob qw( bsd_glob );
 
 $ENV{FFI_PLATYPUS_DLERROR} = 1;
@@ -48,7 +48,7 @@ subtest 'Fortran' => sub {
     note $out;
   }
 
-  my $ffi = FFI::Platypus->new( api => 1 );
+  my $ffi = FFI::Platypus->new( api => 2 );
   $ffi->lang('Fortran');
   $ffi->lib($dll);
 
