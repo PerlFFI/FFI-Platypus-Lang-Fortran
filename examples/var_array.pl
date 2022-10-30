@@ -4,7 +4,7 @@ use FFI::Platypus 2.00;
 
 my $ffi = FFI::Platypus->new( api => 2 );
 $ffi->lang("Fortran");
-$ffi->lib("./libvar_array.so");
+$ffi->lib("./var_array.so");
 
 $ffi->attach( sum_array => ['integer*','integer[]'] => 'integer',
   sub {
