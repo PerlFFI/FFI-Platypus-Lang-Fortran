@@ -11,23 +11,18 @@ my $post_diag;
 
 $modules{$_} = $_ for qw(
   Capture::Tiny
-  Exporter
   ExtUtils::F77
   ExtUtils::MakeMaker
   FFI::Build
   FFI::Build::File::C
   FFI::Build::Platform
   FFI::Platypus
-  File::Basename
-  File::Glob
   File::Path
   File::ShareDir::Dist
   File::ShareDir::Dist::Install
   File::Which
   File::chdir
   Test2::V0
-  constant
-  lib
 );
 
 
