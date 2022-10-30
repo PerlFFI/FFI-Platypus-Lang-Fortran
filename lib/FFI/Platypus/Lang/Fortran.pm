@@ -48,6 +48,8 @@ request or two on the project's GitHub.
 For types, C<_> is used instead of C<*>, so use C<integer_4> instead of
 C<integer*4>.
 
+These are some of the supported types:
+
 =over 4
 
 =item byte, character

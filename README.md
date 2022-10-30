@@ -41,6 +41,8 @@ request or two on the project's GitHub.
 For types, `_` is used instead of `*`, so use `integer_4` instead of
 `integer*4`.
 
+These are some of the supported types:
+
 - byte, character
 - integer, integer\_1, integer\_2, integer\_4, integer\_8
 - unsigned, unsigned\_1, unsigned\_2, unsigned\_4, unsigned\_8
