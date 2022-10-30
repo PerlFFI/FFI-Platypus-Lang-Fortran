@@ -34,6 +34,7 @@ my %WriteMakefileArgs = (
   },
   TEST_REQUIRES => {
     'Test::More' => '0.98',
+    'Test2::V0'  => '0',
   },
   PREREQ_PM => {
     'FFI::Platypus' => '2.00',
@@ -76,14 +77,3 @@ my %WriteMakefileArgs = (
 );
 
 WriteMakefile(%WriteMakefileArgs);
-
-sub MY::postamble {
-
-  my $pa = '';
-
-  $pa .= "pure_all :: my_build\n\n";
-  $pa .= "my_build:\n";
-  $pa .= "\t\$(FULLPERL) inc/mymm-build.pl\n";
-
-  $pa;
-}

@@ -1,6 +1,4 @@
-use strict;
-use warnings;
-use Test::More;
+use Test2::V0 -no_srand => 1;
 use File::Which qw( which );
 use File::Glob qw( bsd_glob );
 
@@ -56,3 +54,5 @@ subtest 'run perl' => sub {
   }
 
 };
+
+done_testing;
