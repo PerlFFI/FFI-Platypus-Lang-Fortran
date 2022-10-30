@@ -4,7 +4,7 @@ use FFI::Platypus 2.00;
 
 my $ffi = FFI::Platypus->new( api => 2 );
 $ffi->lang('Fortran');
-$ffi->lib('./libfixed_array.so');
+$ffi->lib('./fixed_array.so');
 
 $ffi->attach( print_array10  => ['integer[10]'] => 'void' );
 $ffi->attach( print_array2x5 => ['integer[10]'] => 'void' );

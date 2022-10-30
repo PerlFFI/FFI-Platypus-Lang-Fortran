@@ -5,7 +5,7 @@ use Math::Complex;
 
 my $ffi = FFI::Platypus->new( api => 2 );
 $ffi->lang('Fortran');
-$ffi->lib('./libcomplex.so');
+$ffi->lib('./complex.so');
 
 ## complex not yet supported by FFI::Platypus
 #$ffi->attach(

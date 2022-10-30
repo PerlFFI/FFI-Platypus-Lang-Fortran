@@ -4,28 +4,12 @@ FFI::Platypus::Lang::Fortran
 
 # SYNOPSIS
 
-Fortran 77:
+Fortran:
 
 ```
-C Fortran function that adds two numbers together
-C On Linux create a .so with: gfortran -shared -o libadd.so add.f
-      FUNCTION ADD(IA, IB)
-          ADD = IA + IB
-      END
-```
-
-Fortran 90/95:
-
-```
-! Fortran function that adds two numbers together
-! On Linux create a .so with: gfortran -shared -o libadd.so add.f90
-function add(a,b) result(ret)
-  implicit none
-  integer :: a
-  integer :: b
-  integer :: ret
-  ret = a + b
-end function add
+   FUNCTION ADD(IA, IB)
+       ADD = IA + IB
+   END
 ```
 
 Perl:
@@ -33,22 +17,21 @@ Perl:
 ```perl
 use FFI::Platypus 2.00;
 
-my $ffi = FFI::Platypus->new( api => 2 );
-$ffi->lang('Fortran');
-$ffi->lib('./libadd.so'); # or add.dll on Windows
+my $ffi = FFI::Platypus->new(
+  api  => 2,
+  lang => 'Fortran',
+  lib  => './add.so',
+);
 
-# Fortran is pass by reference, so use pointers
-$ffi->attach( add => [ 'integer*', 'integer*' ] => 'integer' );
+$ffi->attach( add => ['integer*','integer*'] => 'integer');
 
-# Use a reference to an integer to pass
-# a pointer to an integer
-print add(\1,\2), "\n";  # prints 3
+print add(\1,\2), "\n";
 ```
 
 # DESCRIPTION
 
-This module provides native types and demangling for Fortran when
-used with [FFI::Platypus](https://metacpan.org/pod/FFI::Platypus).
+This module provides native types and demangling for Fortran when used
+with [FFI::Platypus](https://metacpan.org/pod/FFI::Platypus).
 
 This module is somewhat experimental.  It is also available for adoption
 for anyone either sufficiently knowledgeable about Fortran or eager enough to
@@ -66,7 +49,54 @@ For types, `_` is used instead of `*`, so use `integer_4` instead of
 
 # EXAMPLES
 
-## Call a subroutine
+## Passing and Returning Integers
+
+### Fortran
+
+```
+   FUNCTION ADD(IA, IB)
+       ADD = IA + IB
+   END
+```
+
+### Perl
+
+```perl
+use FFI::Platypus 2.00;
+
+my $ffi = FFI::Platypus->new(
+  api  => 2,
+  lang => 'Fortran',
+  lib  => './add.so',
+);
+
+$ffi->attach( add => ['integer*','integer*'] => 'integer');
+
+print add(\1,\2), "\n";
+```
+
+### Execute
+
+```
+$ gfortran -shared add.f -o add.so
+$ perl add.pl
+3
+```
+
+### Discussion
+
+In Fortran 77 variables that start with the letter I are integers
+unless declared otherwise.  Fortran is also pass by reference, which
+means that under the covers Fortran passes its arguments as pointers
+to the data, and you have to remember to pass in a reference to a
+value from Perl.
+
+Here we are building our own Fortran dynamic library using the GNU
+Fortran compiler on a Unix like platform.  The exact incantation that
+you will use to do this will unfortunately depend on your platform
+and Fortran compiler.
+
+## Calling a subroutine
 
 Fortran:
 

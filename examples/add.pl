@@ -2,9 +2,11 @@ use strict;
 use warnings;
 use FFI::Platypus 2.00;
 
-my $ffi = FFI::Platypus->new( api => 2 );
-$ffi->lang('Fortran');
-$ffi->lib('./libf77add.so');
+my $ffi = FFI::Platypus->new(
+  api  => 2,
+  lang => 'Fortran',
+  lib  => './add.so',
+);
 
 $ffi->attach( add => ['integer*','integer*'] => 'integer');
 
