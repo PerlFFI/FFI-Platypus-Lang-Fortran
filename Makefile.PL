@@ -33,7 +33,6 @@ my %WriteMakefileArgs = (
     'FFI::Build::MM'       => 0,
   },
   TEST_REQUIRES => {
-    'Test::More' => '0.98',
     'Test2::V0'  => '0',
   },
   PREREQ_PM => {
