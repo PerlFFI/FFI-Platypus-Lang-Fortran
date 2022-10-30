@@ -1,5 +1,5 @@
 .gitattributes
-.travis.yml
+.github/workflows/linux.yml
 Changes
 CONTRIBUTING
 corpus/ffi_build/project-fortran/add1.f
