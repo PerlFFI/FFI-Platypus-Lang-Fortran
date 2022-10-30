@@ -106,7 +106,7 @@ and Fortran compiler.
 =head3 Execute
 
  $ gfortran -shared sub.f -o sub.so
- $ perl sub.pl 
+ $ perl sub.pl
  3
 
 =head3 Discussion
@@ -129,7 +129,7 @@ result of a function.
 =head3 Execute
 
  $ gfortran -shared fib.f90 -o fib.so
- $ perl fib.pl 
+ $ perl fib.pl
  1
  1
  2
@@ -149,70 +149,24 @@ pointers.  In this example we compute 10 Fibonacci numbers.
 
 =head2 Complex numbers
 
-Fortran:
+=head3 Fortran
 
- ! on Linux: gfortran -shared -fPIC -o libcomplex.so complex.f90
- 
- subroutine complex_decompose(c,r,i)
-   implicit none
-   complex*16 :: c
-   real*8 :: r
-   real*8 :: i
- 
-   r = real(c)
-   i = aimag(c)
- 
- end subroutine complex_decompose
+# EXAMPLE: examples/complex.f90
 
-Perl:
+=head3 Perl
 
- use FFI::Platypus 2.00;
- use Math::Complex;
- 
- my $ffi = FFI::Platypus->new( api => 2 );
- $ffi->lang('Fortran');
- $ffi->lib('./libcomplex.so');
- 
- $ffi->attach(
-   complex_decompose => ['real_8[2]','real_8*','real_8*'] => 'void',
-   sub {
-     # wrapper around the Fortran function complex_decompose
-     # $decompose is a code ref to the real complex_decompose
-     # and $complex is the first argument passed int othe Perl
-     # function complex_decompose
-     my($decompose, $complex) = @_;
-     my $real;
-     my $imaginary;
-     # decompose the Perl complex number and pass it as a
-     # Fortran complex number
-     $decompose->([Re($complex),Im($complex)], \$real, \$imaginary);
-     # The decomposed real and imaginary parts are returned from
-     # Fortran.  We pass them back to the caller as a return value
-     ($real, $imaginary);
-   },
- );
- 
- my($r,$i) = complex_decompose(1.5 + 2.5*i);
- 
- print "${r} + ${i}i\n";
+# EXAMPLE: examples/complex.pl
 
-B<Discussion>: More recent versions of C<libffi> and L<FFI::Platypus>
-support complex types, but not pointers to complex types, so they
-aren't (yet) much use when calling Fortran, which is pass by reference.
-There is a work  around, however, at least for complex types passes as
-arguments.  They are really two just two C<real*4> or C<real*8> types
-joined together like an array or record of two elements.  Thus we can
-pass in a complex type to a Fortran subroutine as an array of two
-floating points.  Take  care though, as this technique DOES NOT work
-for return types.
+=head3 Execute
 
-From my research, some Fortran compilers pass in the return address of
-the return value as the first argument for functions that return a
-C<complex> type.  This is not the case for GNU Fortran, the compiler
-that I have been testing with, but if your compiler does use this
-convention you could pass in the "return value" as a two element array,
-as we did in the above example.  I have not been able to test this
-though.
+ $gfortran -shared complex.f90 -o complex.so
+ $ perl complex.pl
+ 1.5 + 2.5i
+
+=head3 Discussion
+
+Platypus now supports complex types of various sizes.  This means that
+you can transparently use complex arguments and arrays of complex types.
 
 =head2 Fixed length array
 
