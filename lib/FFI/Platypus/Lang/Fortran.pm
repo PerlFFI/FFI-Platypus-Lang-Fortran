@@ -36,9 +36,9 @@ Fortran 90/95:
 
 Perl:
 
- use FFI::Platypus 1.00;
+ use FFI::Platypus 2.00;
  
- my $ffi = FFI::Platypus->new( api => 1 );
+ my $ffi = FFI::Platypus->new( api => 2 );
  $ffi->lang('Fortran');
  $ffi->lib('./libadd.so'); # or add.dll on Windows
  
@@ -134,9 +134,9 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus 1.00;
+ use FFI::Platypus 2.00;
  
- my $ffi = FFI::Platypus->new( api => 1 );
+ my $ffi = FFI::Platypus->new( api => 2 );
  $ffi->lang('Fortran');
  $ffi->lib('./libsub.so');
  
@@ -175,9 +175,9 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus 1.00;
+ use FFI::Platypus 2.00;
  
- my $ffi = FFI::Platypus->new( api => 1 );
+ my $ffi = FFI::Platypus->new( api => 2 );
  $ffi->lang('Fortran');
  $ffi->lib('./libfib.so');
  
@@ -210,10 +210,10 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus 1.00;
+ use FFI::Platypus 2.00;
  use Math::Complex;
  
- my $ffi = FFI::Platypus->new( api => 1 );
+ my $ffi = FFI::Platypus->new( api => 2 );
  $ffi->lang('Fortran');
  $ffi->lib('./libcomplex.so');
  
@@ -275,9 +275,9 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus 1.00;
+ use FFI::Platypus 2.00;
  
- my $ffi = FFI::Platypus->new( api => 1 );
+ my $ffi = FFI::Platypus->new( api => 2 );
  $ffi->lang('Fortran');
  $ffi->lib('./libfixed.so');
  
@@ -320,9 +320,9 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus 1.00;
+ use FFI::Platypus 2.00;
  
- my $ffi = FFI::Platypus->new( api => 1 );
+ my $ffi = FFI::Platypus->new( api => 2 );
  $ffi->lang('Fortran');
  $ffi->lib('./libfixed.so');
  
@@ -372,9 +372,9 @@ Fortran:
 
 Perl:
 
- use FFI::Platypus 1.00;
+ use FFI::Platypus 2.00;
  
- my $ffi = FFI::Platypus->new( api => 1 );
+ my $ffi = FFI::Platypus->new( api => 2 );
  $ffi->lang("Fortran");
  $ffi->lib("./libvar_array.so");
  
