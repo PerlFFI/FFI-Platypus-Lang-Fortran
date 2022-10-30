@@ -163,9 +163,11 @@ end function fib
 ```perl
 use FFI::Platypus 2.00;
 
-my $ffi = FFI::Platypus->new( api => 2 );
-$ffi->lang('Fortran');
-$ffi->lib('./fib.so');
+my $ffi = FFI::Platypus->new(
+  api  => 2,
+  lang =>'Fortran',
+  lib  => './fib.so',
+);
 
 $ffi->attach( fib => ['integer*'] => 'integer' );
 
@@ -246,103 +248,117 @@ $ perl complex.pl
 Platypus now supports complex types of various sizes.  This means that
 you can transparently use complex arguments and arrays of complex types.
 
-## Fixed length array
+## Arrays
 
-Fortran:
+### Fortran
 
 ```perl
-! on Linux: gfortran -shared -fPIC -o libfixed.so fixed.f90
-
 subroutine print_array10(a)
   implicit none
   integer, dimension(10) :: a
   integer :: i
+  
   do i=1,10
     print *, a(i)
   end do
+  
 end subroutine print_array10
 ```
 
-Perl:
+### Perl
 
 ```perl
 use FFI::Platypus 2.00;
 
-my $ffi = FFI::Platypus->new( api => 2 );
-$ffi->lang('Fortran');
-$ffi->lib('./libfixed.so');
+my $ffi = FFI::Platypus->new(
+  api  => 2,
+  lang => 'Fortran',
+  lib  => 'array.so',
+);
 
 $ffi->attach( print_array10  => ['integer[10]'] => 'void' );
+
 my $array = [5,10,15,20,25,30,35,40,45,50];
+
 print_array10($array);
 ```
 
-Output:
+### Execute
 
 ```
-        5
-       10
-       15
-       20
-       25
-       30
-       35
-       40
-       45
-       50
+$ gfortran -shared array.f90 -o array.so
+$ perl array.pl
+           5
+          10
+          15
+          20
+          25
+          30
+          35
+          40
+          45
+          50
 ```
 
-**Discussion**: In Fortran arrays are 1 indexed unlike Perl and C where
-arrays are 0 indexed.  Perl arrays are passed in from Perl using
-Platypus as a array reference.
+### Discussion
 
-## Multidimensional arrays
+In Fortran arrays are 1 indexed unlike Perl and C where arrays are 0 indexed.
+Perl arrays are passed in from Perl using Platypus as a array reference.
 
-Fortran:
+## Multidimensional Arrays
+
+### Fortran
 
 ```perl
-! On Linux gfortran -shared -fPIC -o libfixed2.so fixed2.f90
-
 subroutine print_array2x5(a)
   implicit none
   integer, dimension(2,5) :: a
   integer :: i,n
-
+  
   do i=1,5
     print *, a(1,i), a(2,i)
   end do
+
 end subroutine print_array2x5
 ```
 
-Perl:
+### Perl
 
 ```perl
 use FFI::Platypus 2.00;
 
-my $ffi = FFI::Platypus->new( api => 2 );
-$ffi->lang('Fortran');
-$ffi->lib('./libfixed.so');
+my $ffi = FFI::Platypus->new(
+  api  => 2,
+  lang => 'Fortran',
+  lib  => 'array2d.so',
+);
 
 $ffi->attach( print_array2x5 => ['integer[10]'] => 'void' );
+
 my $array = [5,10,15,20,25,30,35,40,45,50];
+
 print_array2x5($array);
 ```
 
-Output:
+### Execute
 
 ```
-        5          10
-       15          20
-       25          30
-       35          40
-       45          50
+$ gfortran -shared array2d.f90 -o array2d.so
+$ perl array2d.pl
+           5          10
+          15          20
+          25          30
+          35          40
+          45          50
 ```
 
-**Discussion**: Perl does not generally support multi-dimensional arrays
-(though they can be achieved using lists of references).  In Fortran,
-multidimensional arrays are stored as a contiguous series of bytes, so
-you can pass in a single dimensional array to a Fortran function or
-subroutine assuming it has sufficient number of values.
+### Discussion
+
+Perl does not generally support multi-dimensional arrays (though they
+can be achieved using lists of references).  In Fortran, multidimensional
+arrays are stored as a contiguous series of bytes, so you can pass in a
+single dimensional array to a Fortran function or subroutine assuming
+it has sufficient number of values.
 
 Platypus updates any values that have been changed by Fortran when the
 Fortran code returns.
@@ -352,63 +368,68 @@ which is the opposite of C/C++, which could be termed "row-first".
 
 ## Variable-length array
 
-Fortran:
+### Fortran
 
 ```
-! On Linux gfortran -shared -fPIC -o libvar.so var.f90
-
 function sum_array(size,a) result(ret)
   implicit none
   integer :: size
   integer, dimension(size) :: a
   integer :: i
   integer :: ret
-
+ 
   ret = 0
-
+  
   do i=1,size
     ret = ret + a(i)
   end do
+  
 end function sum_array
 ```
 
-Perl:
+### Perl
 
 ```perl
 use FFI::Platypus 2.00;
 
-my $ffi = FFI::Platypus->new( api => 2 );
-$ffi->lang("Fortran");
-$ffi->lib("./libvar_array.so");
+my $ffi = FFI::Platypus->new(
+  api  => 2,
+  lang => 'Fortran',
+  lib  => './var_array.so',
+);
 
 $ffi->attach( sum_array => ['integer*','integer[]'] => 'integer',
   sub {
     my $f = shift;
     my $size = scalar @_;
     $f->(\$size, \@_);
-  },
+  }
 );
 
 my @a = (1..10);
 my @b = (25..30);
 
-print sum_array(1..10), "\n";
-print sum_array(25..30), "\n";
+print sum_array(@a), "\n";
+print sum_array(@b), "\n";
 ```
 
-Output:
+### Execute
 
 ```
+$ gfortran -shared var_array.f90 -o var_array.so
+$ perl var_array.pl
 55
 165
 ```
 
-**Discussion**: Fortran allows variable-length arrays.  To indicate a
-variable length array use the `[]` notation without a length.  Note
-that this works for argument types, where Perl knows the length of an
-array, but it will not work for return types, where Perl has no way of
-determining the size of the returned array (you can probably fake it
-with an `opaque` type and a wrapper function though).
+### Discussion
+
+Fortran allows variable-length arrays.  To indicate a variable length
+array use the `[]` notation without a length.  Note that this works
+for argument types, where Perl knows the length of an array, but it
+will not work for return types, where Perl has no way of determining
+the size of the returned array (you can probably fake it with an
+`opaque` type and a wrapper function though).
 
 # METHODS
 
