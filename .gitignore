@@ -10,3 +10,5 @@
 *.swp
 /share
 /.build
+*.old
+*.orig
